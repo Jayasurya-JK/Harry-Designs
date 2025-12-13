@@ -26,43 +26,68 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        scrolled ? 'glass-effect shadow-xl shadow-purple-500/5' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <motion.div
+          <motion.a
+            href="#home"
             whileHover={{ scale: 1.05 }}
             className="text-2xl md:text-3xl font-display font-bold text-gradient"
           >
             Harry
-          </motion.div>
+          </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex space-x-1">
+            {navLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.href}
-                whileHover={{ scale: 1.1 }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
+                className="relative px-4 py-2 text-slate-300 hover:text-white font-medium transition-colors group"
               >
                 {link.name}
+                <motion.span
+                  className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-dark origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </motion.a>
             ))}
           </div>
 
+          {/* CTA Button */}
+          <motion.a
+            href="#contact"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(120, 119, 198, 0.3)" }}
+            whileTap={{ scale: 0.95 }}
+            className="hidden md:block px-6 py-2 bg-gradient-dark text-white rounded-full font-semibold text-sm"
+          >
+            Let&apos;s Talk
+          </motion.a>
+
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button
+            <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-purple-600 focus:outline-none"
+              whileTap={{ scale: 0.9 }}
+              className="text-slate-300 hover:text-white focus:outline-none"
             >
               {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -70,22 +95,36 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-white border-t"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="md:hidden glass-effect border-t border-white/10"
         >
           <div className="px-4 pt-2 pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, index) => (
+              <motion.a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md transition-colors"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.3 }}
+                className="block px-3 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
               >
                 {link.name}
-              </a>
+              </motion.a>
             ))}
+            <motion.a
+              href="#contact"
+              onClick={() => setIsOpen(false)}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.3 }}
+              className="block px-3 py-3 bg-gradient-dark text-white rounded-lg font-semibold text-center"
+            >
+              Let&apos;s Talk
+            </motion.a>
           </div>
         </motion.div>
       )}
