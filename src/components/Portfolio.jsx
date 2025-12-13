@@ -132,7 +132,7 @@ const Portfolio = () => {
             whileTap={{ scale: 0.95 }}
             className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
           >
-            Let's Create Something Amazing
+            Let&apos;s Create Something Amazing
           </motion.a>
         </motion.div>
       </div>

@@ -42,8 +42,8 @@ const About = () => {
             About <span className="text-gradient">Me</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            I'm a passionate designer specializing in creating stunning logos and product packaging designs 
-            that help brands stand out in today's competitive market.
+            I&apos;m a passionate designer specializing in creating stunning logos and product packaging designs 
+            that help brands stand out in today&apos;s competitive market.
           </p>
         </motion.div>
 
@@ -79,7 +79,7 @@ const About = () => {
             { number: "150+", label: "Happy Clients" },
             { number: "50+", label: "Logos Designed" },
             { number: "100+", label: "Packages Created" }
-          ].map((stat, index) => (
+          ].map((stat) => (
             <motion.div
               key={stat.label}
               whileHover={{ scale: 1.05 }}
