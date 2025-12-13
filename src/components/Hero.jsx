@@ -173,10 +173,11 @@ const Hero = () => {
             ease: "easeInOut"
           }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          aria-label="Scroll down to view content"
         >
           <div className="flex flex-col items-center gap-2">
             <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
-            <HiArrowDown className="text-purple-400 text-2xl" />
+            <HiArrowDown className="text-purple-400 text-2xl" aria-hidden="true" />
           </div>
         </motion.div>
       </motion.div>

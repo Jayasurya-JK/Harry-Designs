@@ -8,13 +8,6 @@
     -webkit-text-fill-color: transparent;
   }
   
-  .text-gradient-gold {
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
   .bg-gradient-dark {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }

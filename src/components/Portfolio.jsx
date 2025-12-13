@@ -66,6 +66,8 @@ const Portfolio = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.2, duration: 0.6 }}
           className="flex flex-wrap justify-center gap-4 mb-16"
+          role="group"
+          aria-label="Filter portfolio items"
         >
           {filterButtons.map((btn) => (
             <motion.button
@@ -73,6 +75,7 @@ const Portfolio = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(btn.value)}
+              aria-current={filter === btn.value ? "true" : "false"}
               className={`relative px-8 py-3 rounded-full font-semibold transition-all ${
                 filter === btn.value
                   ? 'bg-gradient-dark text-white shadow-lg shadow-purple-500/30'
@@ -146,12 +149,7 @@ const Portfolio = () => {
                       <span className="inline-block px-3 py-1 glass-effect rounded-full text-sm capitalize">
                         {item.category}
                       </span>
-                      <motion.span
-                        whileHover={{ x: 5 }}
-                        className="text-2xl"
-                      >
-                        →
-                      </motion.span>
+                      <span className="text-2xl" aria-label="View project">→</span>
                     </div>
                   </div>
                 </motion.div>

@@ -37,6 +37,7 @@ const Navbar = () => {
           <motion.a
             href="#home"
             whileHover={{ scale: 1.05 }}
+            aria-label="Harry Designs - Home"
             className="text-2xl md:text-3xl font-display font-bold text-gradient"
           >
             Harry
