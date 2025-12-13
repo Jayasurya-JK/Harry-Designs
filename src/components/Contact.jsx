@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 import { FaLinkedin, FaInstagram, FaBehance, FaDribbble } from 'react-icons/fa';
@@ -12,12 +11,14 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
-    alert('Thank you for your message! I will get back to you soon.');
+    setShowSuccess(true);
     setFormData({ name: '', email: '', message: '' });
+    setTimeout(() => setShowSuccess(false), 5000);
   };
 
   const handleChange = (e) => {
@@ -129,6 +130,18 @@ const Contact = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Success Message */}
+              {showSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800"
+                >
+                  ✓ Thank you for your message! I will get back to you soon.
+                </motion.div>
+              )}
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   Your Name
