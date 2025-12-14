@@ -62,10 +62,10 @@ const Contact = () => {
           >
             <span className="text-purple-400 text-sm tracking-[0.3em] uppercase font-medium">Contact</span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
+          <h2 className="text-3xl md:text-6xl font-display font-bold mb-6">
             Let&apos;s Work <span className="text-gradient">Together</span>
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg lg:text-xl text-slate-400 max-w-3xl mx-auto px-4">
             Have a project in mind? Let&apos;s discuss how we can bring your vision to life
           </p>
         </motion.div>
