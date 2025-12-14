@@ -89,7 +89,7 @@ const Hero = () => {
 
           {/* Main heading with character animation effect */}
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-9xl font-display font-bold mb-8"
+            className="text-5xl md:text-7xl lg:text-9xl font-display font-bold mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -113,7 +113,7 @@ const Hero = () => {
           </motion.h1>
 
           <motion.p
-            className="text-xl md:text-2xl lg:text-3xl text-slate-400 mb-8 font-light max-w-3xl mx-auto"
+            className="text-lg md:text-2xl lg:text-3xl text-slate-400 mb-6 md:mb-8 font-light max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
@@ -122,7 +122,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.p
-            className="text-base md:text-lg text-slate-500 max-w-2xl mx-auto mb-12"
+            className="text-sm md:text-base lg:text-lg text-slate-500 max-w-2xl mx-auto mb-10 md:mb-12 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}

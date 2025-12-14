@@ -323,10 +323,10 @@ const Portfolio = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="mb-12"
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
+          <h3 className="text-2xl md:text-4xl font-bold text-center mb-4 text-white">
             Featured <span className="text-gradient">Projects</span>
           </h3>
-          <p className="text-center text-slate-400 mb-12">
+          <p className="text-center text-slate-400 mb-12 text-sm md:text-base px-4">
             {showAll ? "Explore all my creative work" : "Showcasing my best design creations"}
           </p>
         </motion.div>
@@ -378,7 +378,7 @@ const Portfolio = () => {
                     />
                     
                     {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-between p-8">
+                    <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
                       {/* Top section - Brand icon */}
                       <motion.div 
                         className="flex justify-between items-start"
@@ -392,13 +392,13 @@ const Portfolio = () => {
                             rotate: !isMobile && hoveredItem === item.id ? 5 : 0,
                           }}
                           transition={{ duration: 0.3 }}
-                          className="text-5xl md:text-6xl text-white/90 backdrop-blur-sm bg-white/10 p-4 rounded-2xl"
+                          className="text-4xl md:text-6xl text-white/90 backdrop-blur-sm bg-white/10 p-3 md:p-4 rounded-xl md:rounded-2xl"
                         >
                           {item.icon}
                         </motion.div>
                         
                         <motion.span 
-                          className="text-sm px-4 py-2 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
+                          className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
                           animate={{
                             y: !isMobile && hoveredItem === item.id ? -5 : 0,
                           }}
@@ -418,20 +418,20 @@ const Portfolio = () => {
                           }}
                           transition={{ duration: 0.3 }}
                         >
-                          <p className="text-sm text-white/70 mb-2 font-medium">Client</p>
-                          <h3 className="text-3xl md:text-4xl font-bold mb-3">{item.client}</h3>
-                          <p className="text-lg text-white/80 mb-4">{item.title}</p>
-                          <p className="text-sm text-white/70 mb-4">{item.description}</p>
+                          <p className="text-xs md:text-sm text-white/70 mb-1 md:mb-2 font-medium">Client</p>
+                          <h3 className="text-2xl md:text-4xl font-bold mb-2 md:mb-3">{item.client}</h3>
+                          <p className="text-base md:text-lg text-white/80 mb-2 md:mb-4">{item.title}</p>
+                          <p className="text-xs md:text-sm text-white/70 mb-3 md:mb-4">{item.description}</p>
                         </motion.div>
                         
                         <motion.div
-                          className="flex items-center gap-3"
+                          className="flex items-center gap-2 md:gap-3"
                           animate={{
                             x: !isMobile && hoveredItem === item.id ? 10 : 0,
                           }}
                           transition={{ duration: 0.3 }}
                         >
-                          <span className="px-5 py-2.5 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium">
+                          <span className="px-4 md:px-5 py-2 md:py-2.5 bg-white/20 backdrop-blur-md rounded-full text-xs md:text-sm font-medium">
                             Featured Project
                           </span>
                           <motion.span
@@ -439,7 +439,7 @@ const Portfolio = () => {
                               x: !isMobile && hoveredItem === item.id ? 5 : 0,
                               scale: !isMobile && hoveredItem === item.id ? 1.2 : 1 
                             }}
-                            className="text-2xl"
+                            className="text-xl md:text-2xl"
                           >
                             →
                           </motion.span>
@@ -491,13 +491,13 @@ const Portfolio = () => {
                   boxShadow: "0 20px 60px rgba(120, 119, 198, 0.5)"
                 } : {}}
                 whileTap={{ scale: 0.95 }}
-                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-dark text-white rounded-full font-semibold text-lg overflow-hidden"
+                className="group relative inline-flex items-center gap-2 md:gap-3 px-8 md:px-10 py-4 md:py-5 bg-gradient-dark text-white rounded-full font-semibold text-base md:text-lg overflow-hidden"
               >
                 <span className="relative z-10">View All Projects</span>
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="relative z-10 text-2xl"
+                  className="relative z-10 text-xl md:text-2xl"
                 >
                   →
                 </motion.span>
