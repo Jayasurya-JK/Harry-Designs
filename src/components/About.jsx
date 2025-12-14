@@ -147,19 +147,19 @@ const About = () => {
         </motion.div>
 
         {/* New Layout: Designer Photo + Why Harry Section */}
-        {/* Mobile: Photo Right, Why Harry Left | Desktop: Why Harry Left, Photo Right */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {/* Left Side on Desktop, Right Side on Mobile: Why Harry */}
+        {/* Mobile: Photo Right, Why Harry Left (side by side) | Desktop: Why Harry Left, Photo Right */}
+        <div className="grid grid-cols-2 gap-4 md:gap-8 mb-16">
+          {/* Left Side: Why Harry */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="order-2 md:order-1"
+            className="order-1"
           >
-            <h3 className="text-3xl md:text-4xl font-bold mb-8 text-white">
+            <h3 className="text-xl md:text-4xl font-bold mb-4 md:mb-8 text-white">
               Why <span className="text-gradient">Harry?</span>
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-2 md:space-y-4">
               {whyHarry.map((reason, index) => (
                 <motion.div
                   key={reason.title}
@@ -175,7 +175,7 @@ const About = () => {
                     scale: 1.02,
                     transition: { duration: 0.3 }
                   } : {}}
-                  className="group relative p-6 glass-effect rounded-2xl overflow-hidden"
+                  className="group relative p-3 md:p-6 glass-effect rounded-xl md:rounded-2xl overflow-hidden"
                   onMouseEnter={() => !isMobile && setHoveredCard(reason.title)}
                   onMouseLeave={() => !isMobile && setHoveredCard(null)}
                 >
@@ -186,19 +186,19 @@ const About = () => {
                     }}
                   />
                   
-                  <div className="relative z-10 flex items-start gap-4">
+                  <div className="relative z-10 flex flex-col md:flex-row items-start gap-2 md:gap-4">
                     <motion.div
                       animate={{
                         scale: !isMobile && hoveredCard === reason.title ? 1.1 : 1,
                       }}
                       transition={{ duration: 0.3 }}
-                      className="text-purple-400"
+                      className="text-purple-400 text-xl md:text-3xl"
                     >
                       {reason.icon}
                     </motion.div>
                     <div className="flex-1">
-                      <h4 className="text-xl font-bold mb-2 text-white">{reason.title}</h4>
-                      <p className="text-slate-400 text-sm">{reason.description}</p>
+                      <h4 className="text-sm md:text-xl font-bold mb-1 md:mb-2 text-white">{reason.title}</h4>
+                      <p className="text-slate-400 text-xs md:text-sm hidden md:block">{reason.description}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -206,14 +206,14 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Right Side on Desktop, Left Side on Mobile: Designer Photo */}
+          {/* Right Side: Designer Photo */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative order-1 md:order-2"
+            className="relative order-2"
           >
-            <div className="relative aspect-square lg:aspect-auto lg:h-full rounded-3xl overflow-hidden glass-effect p-8">
+            <div className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden glass-effect p-4 md:p-8">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-pink-600/20 to-indigo-600/20" />
               
@@ -231,9 +231,9 @@ const About = () => {
                   className="relative"
                 >
                   {/* Photo placeholder - using a professional avatar */}
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-2xl">
+                  <div className="w-32 h-32 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-2xl">
                     {imageError ? (
-                      <div className="text-6xl">👨‍🎨</div>
+                      <div className="text-3xl md:text-6xl">👨‍🎨</div>
                     ) : (
                       <img 
                         src="https://api.dicebear.com/7.x/avataaars/svg?seed=Harry&backgroundColor=transparent&style=circle" 
@@ -254,7 +254,7 @@ const About = () => {
                       repeat: Infinity,
                       ease: "linear"
                     }}
-                    className="absolute -top-4 -right-4 w-20 h-20 border-4 border-purple-500/50 rounded-full"
+                    className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-10 h-10 md:w-20 md:h-20 border-2 md:border-4 border-purple-500/50 rounded-full"
                   />
                   <motion.div
                     animate={{
@@ -265,13 +265,13 @@ const About = () => {
                       repeat: Infinity,
                       ease: "linear"
                     }}
-                    className="absolute -bottom-4 -left-4 w-16 h-16 border-4 border-pink-500/50 rounded-lg"
+                    className="absolute -bottom-2 -left-2 md:-bottom-4 md:-left-4 w-8 h-8 md:w-16 md:h-16 border-2 md:border-4 border-pink-500/50 rounded-lg"
                   />
                 </motion.div>
               </div>
               
-              {/* Stats overlay */}
-              <div className="absolute bottom-8 left-8 right-8 flex justify-around gap-4">
+              {/* Stats overlay - hidden on mobile to save space */}
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 hidden md:flex justify-around gap-4">
                 {[
                   { num: "5+", label: "Years" },
                   { num: "200+", label: "Projects" },
