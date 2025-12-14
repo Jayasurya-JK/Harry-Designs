@@ -147,12 +147,14 @@ const About = () => {
         </motion.div>
 
         {/* New Layout: Designer Photo + Why Harry Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Left Side: Why Harry */}
+        {/* Mobile: Photo Right, Why Harry Left | Desktop: Why Harry Left, Photo Right */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {/* Left Side on Desktop, Right Side on Mobile: Why Harry */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="order-2 md:order-1"
           >
             <h3 className="text-3xl md:text-4xl font-bold mb-8 text-white">
               Why <span className="text-gradient">Harry?</span>
@@ -204,12 +206,12 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Right Side: Designer Photo */}
+          {/* Right Side on Desktop, Left Side on Mobile: Designer Photo */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
+            className="relative order-1 md:order-2"
           >
             <div className="relative aspect-square lg:aspect-auto lg:h-full rounded-3xl overflow-hidden glass-effect p-8">
               {/* Gradient background */}
