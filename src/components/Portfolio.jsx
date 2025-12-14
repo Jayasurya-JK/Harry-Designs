@@ -35,8 +35,11 @@ const Portfolio = () => {
     { name: 'Netflix', icon: <SiNetflix />, color: 'from-red-600 to-red-800' },
   ];
 
-  // Calculate animation distance: (card width 160px + gap 32px) * number of brands
-  const scrollDistance = (160 + 32) * brands.length;
+  // Calculate animation distance based on actual card dimensions
+  // Card width: 160px (w-40), Gap: 32px (gap-8)
+  const CARD_WIDTH = 160;
+  const CARD_GAP = 32;
+  const scrollDistance = (CARD_WIDTH + CARD_GAP) * brands.length;
 
   // Enhanced portfolio items with brand names and realistic projects
   const portfolioItems = [

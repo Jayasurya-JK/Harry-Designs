@@ -8,6 +8,7 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -229,15 +230,16 @@ const About = () => {
                 >
                   {/* Photo placeholder - using a professional avatar */}
                   <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-2xl">
-                    <img 
-                      src="https://api.dicebear.com/7.x/avataaars/svg?seed=Harry&backgroundColor=transparent&style=circle" 
-                      alt="Harry - Creative Designer"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = '<div class="text-6xl text-white">👨‍🎨</div>';
-                      }}
-                    />
+                    {imageError ? (
+                      <div className="text-6xl">👨‍🎨</div>
+                    ) : (
+                      <img 
+                        src="https://api.dicebear.com/7.x/avataaars/svg?seed=Harry&backgroundColor=transparent&style=circle" 
+                        alt="Harry - Creative Designer"
+                        className="w-full h-full object-cover"
+                        onError={() => setImageError(true)}
+                      />
+                    )}
                   </div>
                   
                   {/* Decorative elements */}
@@ -411,7 +413,7 @@ const About = () => {
                     </motion.div>
                   </motion.div>
                   
-                  <span className="text-xs text-slate-400 text-center mt-3 group-hover:text-white transition-colors line-clamp-1">
+                  <span className="text-xs text-slate-400 text-center mt-3 group-hover:text-white transition-colors truncate max-w-full block">
                     {tool.name}
                   </span>
                 </motion.div>
