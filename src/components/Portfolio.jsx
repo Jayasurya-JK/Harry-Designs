@@ -35,6 +35,9 @@ const Portfolio = () => {
     { name: 'Netflix', icon: <SiNetflix />, color: 'from-red-600 to-red-800' },
   ];
 
+  // Calculate animation distance: (card width 160px + gap 32px) * number of brands
+  const scrollDistance = (160 + 32) * brands.length;
+
   // Enhanced portfolio items with brand names and realistic projects
   const portfolioItems = [
     { 
@@ -211,7 +214,7 @@ const Portfolio = () => {
               {/* First set */}
               <motion.div
                 animate={{
-                  x: [0, -1920],
+                  x: [0, -scrollDistance],
                 }}
                 transition={{
                   x: {
@@ -257,7 +260,7 @@ const Portfolio = () => {
               {/* Second set (duplicate for seamless loop) */}
               <motion.div
                 animate={{
-                  x: [0, -1920],
+                  x: [0, -scrollDistance],
                 }}
                 transition={{
                   x: {
@@ -415,9 +418,9 @@ const Portfolio = () => {
                       <motion.div
                         animate={{
                           scale: !isMobile && hoveredItem === item.id ? 1.2 : 1,
-                          rotate: !isMobile && hoveredItem === item.id ? [0, -10, 10, 0] : 0,
+                          rotate: !isMobile && hoveredItem === item.id ? 5 : 0,
                         }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                         className="text-4xl md:text-5xl text-white/90 backdrop-blur-sm bg-white/10 p-3 rounded-2xl"
                       >
                         {item.icon}

@@ -233,6 +233,10 @@ const About = () => {
                       src="https://api.dicebear.com/7.x/avataaars/svg?seed=Harry&backgroundColor=transparent&style=circle" 
                       alt="Harry - Creative Designer"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<div class="text-6xl text-white">👨‍🎨</div>';
+                      }}
                     />
                   </div>
                   
@@ -386,10 +390,7 @@ const About = () => {
                 >
                   {/* Icon container with gradient background */}
                   <motion.div
-                    className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-2xl overflow-hidden"
-                    style={{
-                      background: `linear-gradient(to bottom right, ${tool.color.replace('from-', 'rgb(var(--')})`,
-                    }}
+                    className={`relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-2xl overflow-hidden bg-gradient-to-br ${tool.color}`}
                   >
                     <motion.div
                       className={`absolute inset-0 bg-gradient-to-br ${tool.color}`}
@@ -410,8 +411,8 @@ const About = () => {
                     </motion.div>
                   </motion.div>
                   
-                  <span className="text-xs text-slate-400 text-center mt-3 group-hover:text-white transition-colors">
-                    {tool.name.split(' ')[0]}
+                  <span className="text-xs text-slate-400 text-center mt-3 group-hover:text-white transition-colors line-clamp-1">
+                    {tool.name}
                   </span>
                 </motion.div>
               ))}
