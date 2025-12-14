@@ -1,13 +1,45 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { FaApple, FaAmazon, FaGoogle, FaCoffee, FaLeaf, FaGem, FaWineBottle, FaTshirt } from 'react-icons/fa';
-import { SiNike, SiCocacola, SiStarbucks } from 'react-icons/si';
+import { useRef, useState, useEffect } from 'react';
+import { FaApple, FaAmazon, FaGoogle, FaCoffee, FaLeaf, FaGem, FaWineBottle, FaTshirt, FaShoppingCart, FaMusic, FaFilm } from 'react-icons/fa';
+import { SiNike, SiCocacola, SiStarbucks, SiAdidas, SiMcdonalds, SiSpotify, SiNetflix } from 'react-icons/si';
 
 const Portfolio = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [filter, setFilter] = useState('all');
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Brands worked with
+  const brands = [
+    { name: 'Apple', icon: <FaApple />, color: 'from-slate-600 to-slate-800' },
+    { name: 'Nike', icon: <SiNike />, color: 'from-orange-600 to-red-600' },
+    { name: 'Coca Cola', icon: <SiCocacola />, color: 'from-red-600 to-red-800' },
+    { name: 'Starbucks', icon: <SiStarbucks />, color: 'from-green-600 to-emerald-700' },
+    { name: 'Amazon', icon: <FaAmazon />, color: 'from-orange-500 to-yellow-600' },
+    { name: 'Google', icon: <FaGoogle />, color: 'from-blue-600 to-indigo-600' },
+    { name: 'Adidas', icon: <SiAdidas />, color: 'from-slate-700 to-slate-900' },
+    { name: 'Target', icon: <FaShoppingCart />, color: 'from-red-600 to-rose-800' },
+    { name: 'McDonalds', icon: <SiMcdonalds />, color: 'from-yellow-500 to-red-600' },
+    { name: 'Spotify', icon: <SiSpotify />, color: 'from-green-500 to-green-700' },
+    { name: 'Netflix', icon: <SiNetflix />, color: 'from-red-600 to-red-800' },
+  ];
+
+  // Calculate animation distance based on actual card dimensions
+  // Card width: 160px (w-40), Gap: 32px (gap-8)
+  const CARD_WIDTH = 160;
+  const CARD_GAP = 32;
+  const scrollDistance = (CARD_WIDTH + CARD_GAP) * brands.length;
 
   // Enhanced portfolio items with brand names and realistic projects
   const portfolioItems = [
@@ -161,11 +193,132 @@ const Portfolio = () => {
             <span className="text-purple-400 text-sm tracking-[0.3em] uppercase font-medium">Portfolio</span>
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-            Featured <span className="text-gradient">Work</span>
+            Brands I've <span className="text-gradient">Worked With</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
-            Explore a curated collection of brand identities and packaging designs for leading companies
+            Trusted by leading global brands to deliver exceptional design solutions
           </p>
+        </motion.div>
+
+        {/* Infinite Scrolling Brands Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="mb-20 overflow-hidden"
+        >
+          <div className="relative">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
+            
+            {/* Scrolling brands container */}
+            <div className="flex">
+              {/* First set */}
+              <motion.div
+                animate={{
+                  x: [0, -scrollDistance],
+                }}
+                transition={{
+                  x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 30,
+                    ease: "linear",
+                  },
+                }}
+                className="flex gap-8 pr-8"
+              >
+                {brands.map((brand, index) => (
+                  <motion.div
+                    key={`brand-1-${index}`}
+                    whileHover={!isMobile ? { scale: 1.1, y: -10 } : {}}
+                    className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
+                    onMouseEnter={() => !isMobile && setHoveredItem(brand.name)}
+                    onMouseLeave={() => !isMobile && setHoveredItem(null)}
+                  >
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
+                      animate={{
+                        opacity: !isMobile && hoveredItem === brand.name ? 0.2 : 0,
+                      }}
+                    />
+                    <motion.div
+                      className="text-6xl text-white relative z-10"
+                      animate={{
+                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
+                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
+                      }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {brand.icon}
+                    </motion.div>
+                    <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
+                      {brand.name}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+              
+              {/* Second set (duplicate for seamless loop) */}
+              <motion.div
+                animate={{
+                  x: [0, -scrollDistance],
+                }}
+                transition={{
+                  x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 30,
+                    ease: "linear",
+                  },
+                }}
+                className="flex gap-8 pr-8"
+              >
+                {brands.map((brand, index) => (
+                  <motion.div
+                    key={`brand-2-${index}`}
+                    whileHover={!isMobile ? { scale: 1.1, y: -10 } : {}}
+                    className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
+                    onMouseEnter={() => !isMobile && setHoveredItem(brand.name)}
+                    onMouseLeave={() => !isMobile && setHoveredItem(null)}
+                  >
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
+                      animate={{
+                        opacity: !isMobile && hoveredItem === brand.name ? 0.2 : 0,
+                      }}
+                    />
+                    <motion.div
+                      className="text-6xl text-white relative z-10"
+                      animate={{
+                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
+                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
+                      }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {brand.icon}
+                    </motion.div>
+                    <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
+                      {brand.name}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Featured Work Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mb-12"
+        >
+          <h3 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+            Featured <span className="text-gradient">Projects</span>
+          </h3>
         </motion.div>
 
         {/* Enhanced Filter Buttons */}
@@ -180,7 +333,7 @@ const Portfolio = () => {
           {filterButtons.map((btn) => (
             <motion.button
               key={btn.value}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={!isMobile ? { scale: 1.05, y: -2 } : {}}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(btn.value)}
               aria-current={filter === btn.value ? "true" : "false"}
@@ -209,7 +362,7 @@ const Portfolio = () => {
           ))}
         </motion.div>
 
-        {/* Masonry-style Grid with creative layouts */}
+        {/* Portfolio Grid with creative layouts */}
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}
@@ -233,8 +386,8 @@ const Portfolio = () => {
                 } ${
                   item.size === 'tall' ? 'md:row-span-2' : ''
                 }`}
-                onMouseEnter={() => setHoveredItem(item.id)}
-                onMouseLeave={() => setHoveredItem(null)}
+                onMouseEnter={() => !isMobile && setHoveredItem(item.id)}
+                onMouseLeave={() => !isMobile && setHoveredItem(null)}
               >
                 {/* Card container */}
                 <div className={`relative overflow-hidden rounded-3xl ${
@@ -244,7 +397,7 @@ const Portfolio = () => {
                   <motion.div 
                     className={`absolute inset-0 bg-gradient-to-br ${item.color}`}
                     animate={{
-                      scale: hoveredItem === item.id ? 1.15 : 1,
+                      scale: !isMobile && hoveredItem === item.id ? 1.15 : 1,
                     }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   />
@@ -267,10 +420,10 @@ const Portfolio = () => {
                     >
                       <motion.div
                         animate={{
-                          scale: hoveredItem === item.id ? 1.2 : 1,
-                          rotate: hoveredItem === item.id ? [0, -10, 10, 0] : 0,
+                          scale: !isMobile && hoveredItem === item.id ? 1.2 : 1,
+                          rotate: !isMobile && hoveredItem === item.id ? 5 : 0,
                         }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                         className="text-4xl md:text-5xl text-white/90 backdrop-blur-sm bg-white/10 p-3 rounded-2xl"
                       >
                         {item.icon}
@@ -279,7 +432,7 @@ const Portfolio = () => {
                       <motion.span 
                         className="text-xs px-3 py-1.5 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
                         animate={{
-                          y: hoveredItem === item.id ? -5 : 0,
+                          y: !isMobile && hoveredItem === item.id ? -5 : 0,
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -290,13 +443,13 @@ const Portfolio = () => {
                     {/* Bottom section - Project info */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: hoveredItem === item.id ? 1 : 0.9, y: 0 }}
+                      animate={{ opacity: (!isMobile && hoveredItem === item.id) || isMobile ? 1 : 0.9, y: 0 }}
                       transition={{ duration: 0.3 }}
                       className="text-white"
                     >
                       <motion.div
                         animate={{
-                          y: hoveredItem === item.id ? -10 : 0,
+                          y: !isMobile && hoveredItem === item.id ? -10 : 0,
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -305,49 +458,55 @@ const Portfolio = () => {
                         <p className="text-base text-white/80 mb-4">{item.title}</p>
                       </motion.div>
                       
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{
-                          opacity: hoveredItem === item.id ? 1 : 0,
-                          height: hoveredItem === item.id ? 'auto' : 0,
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-sm text-white/70 mb-4">{item.description}</p>
-                        <div className="flex items-center gap-3">
-                          <span className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium">
-                            View Project
-                          </span>
-                          <motion.span
-                            animate={{ x: hoveredItem === item.id ? 5 : 0 }}
-                            className="text-2xl"
-                          >
-                            →
-                          </motion.span>
-                        </div>
-                      </motion.div>
+                      {!isMobile && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{
+                            opacity: hoveredItem === item.id ? 1 : 0,
+                            height: hoveredItem === item.id ? 'auto' : 0,
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="text-sm text-white/70 mb-4">{item.description}</p>
+                          <div className="flex items-center gap-3">
+                            <span className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium">
+                              View Project
+                            </span>
+                            <motion.span
+                              animate={{ x: hoveredItem === item.id ? 5 : 0 }}
+                              className="text-2xl"
+                            >
+                              →
+                            </motion.span>
+                          </div>
+                        </motion.div>
+                      )}
                     </motion.div>
                   </div>
 
                   {/* Animated border */}
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl border-2 border-white/0 transition-all duration-300"
-                    animate={{
-                      borderColor: hoveredItem === item.id ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0)',
-                    }}
-                  />
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute inset-0 rounded-3xl border-2 border-white/0 transition-all duration-300"
+                      animate={{
+                        borderColor: hoveredItem === item.id ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0)',
+                      }}
+                    />
+                  )}
                   
                   {/* Glow effect */}
-                  <motion.div
-                    className="absolute -inset-1 rounded-3xl opacity-0 blur-2xl transition-opacity duration-500"
-                    animate={{
-                      opacity: hoveredItem === item.id ? 0.6 : 0,
-                    }}
-                    style={{
-                      background: `linear-gradient(to bottom right, ${item.color})`,
-                    }}
-                  />
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute -inset-1 rounded-3xl opacity-0 blur-2xl transition-opacity duration-500"
+                      animate={{
+                        opacity: hoveredItem === item.id ? 0.6 : 0,
+                      }}
+                      style={{
+                        background: `linear-gradient(to bottom right, ${item.color})`,
+                      }}
+                    />
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -366,10 +525,10 @@ const Portfolio = () => {
           </p>
           <motion.a
             href="#contact"
-            whileHover={{ 
+            whileHover={!isMobile ? { 
               scale: 1.05,
               boxShadow: "0 20px 60px rgba(120, 119, 198, 0.5)"
-            }}
+            } : {}}
             whileTap={{ scale: 0.95 }}
             className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-dark text-white rounded-full font-semibold text-lg overflow-hidden"
           >
@@ -381,12 +540,14 @@ const Portfolio = () => {
             >
               →
             </motion.span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.5 }}
-            />
+            {!isMobile && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.5 }}
+              />
+            )}
           </motion.a>
         </motion.div>
       </div>
