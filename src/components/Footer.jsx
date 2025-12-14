@@ -4,27 +4,54 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white py-8">
+    <footer className="relative bg-slate-950 text-white py-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <motion.div
+          <motion.a
+            href="#home"
             whileHover={{ scale: 1.05 }}
-            className="text-2xl md:text-3xl font-display font-bold text-gradient mb-4"
+            className="inline-block text-3xl md:text-4xl font-display font-bold text-gradient mb-4"
           >
             Harry
-          </motion.div>
+          </motion.a>
           
-          <p className="text-gray-400 mb-4">
-            Creating memorable designs that make brands stand out
+          <p className="text-slate-400 mb-6 max-w-md mx-auto">
+            Creating memorable designs that make brands stand out and leave lasting impressions
           </p>
           
-          <div className="border-t border-gray-800 pt-6 mt-6">
-            <p className="text-gray-500 text-sm">
+          {/* Quick Links */}
+          <motion.div 
+            className="flex justify-center space-x-8 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {['Home', 'About', 'Portfolio', 'Contact'].map((link, index) => (
+              <motion.a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                whileHover={{ y: -2, color: '#a78bfa' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-slate-400 hover:text-purple-400 transition-colors text-sm"
+              >
+                {link}
+              </motion.a>
+            ))}
+          </motion.div>
+          
+          <div className="border-t border-slate-800 pt-8 mt-8">
+            <p className="text-slate-500 text-sm">
               © {currentYear} Harry Designs. All rights reserved.
             </p>
           </div>
         </div>
       </div>
+      
+      {/* Decorative gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
     </footer>
   );
 };

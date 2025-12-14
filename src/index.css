@@ -2,10 +2,30 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(to right, rgb(147 51 234), rgb(219 39 119), rgb(37 99 235));
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  
+  .bg-gradient-dark {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-slate-950 text-white;
   }
 }
 
