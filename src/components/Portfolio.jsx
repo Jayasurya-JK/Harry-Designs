@@ -10,6 +10,7 @@ const Portfolio = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [previousFilter, setPreviousFilter] = useState('all');
 
   // Detect mobile devices
   useEffect(() => {
@@ -141,7 +142,8 @@ const Portfolio = () => {
     : portfolioItems.filter(item => item.category === filter);
 
   // Featured items - show only 2 initially
-  const featuredItems = portfolioItems.slice(0, 2);
+  const FEATURED_COUNT = 2;
+  const featuredItems = portfolioItems.slice(0, FEATURED_COUNT);
   const displayItems = showAll ? filteredItems : featuredItems;
 
   const filterButtons = [
@@ -480,7 +482,10 @@ const Portfolio = () => {
               className="text-center mt-12"
             >
               <motion.button
-                onClick={() => setShowAll(true)}
+                onClick={() => {
+                  setPreviousFilter(filter);
+                  setShowAll(true);
+                }}
                 whileHover={!isMobile ? { 
                   scale: 1.05,
                   boxShadow: "0 20px 60px rgba(120, 119, 198, 0.5)"
@@ -713,7 +718,7 @@ const Portfolio = () => {
               <motion.button
                 onClick={() => {
                   setShowAll(false);
-                  setFilter('all');
+                  setFilter(previousFilter);
                 }}
                 whileHover={!isMobile ? { scale: 1.05 } : {}}
                 whileTap={{ scale: 0.95 }}
