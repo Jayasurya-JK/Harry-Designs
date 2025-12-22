@@ -17,6 +17,15 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+  
+  /* Mobile-optimized glass effect - no backdrop-filter for performance */
+  @media (max-width: 768px) {
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
 
   .scrollbar-hide {
     -ms-overflow-style: none;

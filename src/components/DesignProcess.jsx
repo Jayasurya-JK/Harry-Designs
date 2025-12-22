@@ -86,31 +86,19 @@ const DesignProcess = () => {
 
   return (
     <section className="relative py-20 md:py-32 bg-slate-900 overflow-hidden" ref={ref}>
-      {/* Background gradient effects matching site theme */}
+      {/* Background gradient effects matching site theme - Static on mobile, subtle on desktop */}
       <div className="absolute inset-0">
         <motion.div
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: isMobile ? 0.15 : 0.25 } : { opacity: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute top-20 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl md:blur-2xl"
         />
         <motion.div
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: isMobile ? 0.15 : 0.25 } : { opacity: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl md:blur-2xl"
         />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -158,12 +146,7 @@ const DesignProcess = () => {
           >
             <p className="text-slate-400 text-sm flex items-center justify-center gap-2">
               <span>Swipe to see process</span>
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.span>
+              <span>→</span>
             </p>
           </motion.div>
         )}
@@ -213,19 +196,11 @@ const DesignProcess = () => {
                       transition={{ delay: index * 0.15 + 0.5, duration: 0.6 }}
                     />
 
-                    {/* Icon Circle with Rotating Ring */}
+                    {/* Icon Circle - Static gradient on hover only */}
                     <div className="relative mb-4 flex justify-center">
-                      {/* Rotating Ring Effect */}
-                      <motion.div
-                        animate={{
-                          rotate: [0, 360],
-                        }}
-                        transition={{
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                        className="absolute inset-0 rounded-full"
+                      {/* Static gradient background - only visible on hover */}
+                      <div
+                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         style={{
                           background: "conic-gradient(from 0deg, #a855f7, #ec4899, #6366f1, #a855f7)",
                           filter: "blur(10px)",
@@ -236,26 +211,15 @@ const DesignProcess = () => {
                       {/* Icon Container */}
                       <motion.div
                         className="relative w-24 h-24 rounded-full bg-slate-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-slate-800 group-hover:border-purple-500 transition-colors duration-300"
-                        whileHover={{ 
-                          rotate: [0, -5, 5, 0],
-                          transition: { duration: 0.5 }
-                        }}
                       >
                         <motion.div 
                           className="text-purple-400 group-hover:text-purple-300 transition-colors"
                           whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
                         >
                           {step.icon}
                         </motion.div>
                       </motion.div>
-
-                      {/* Hover Glow Effect */}
-                      <motion.div
-                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{
-                          boxShadow: "0 0 40px rgba(168, 85, 247, 0.7)",
-                        }}
-                      />
                     </div>
 
                     {/* Card Content */}
@@ -338,39 +302,26 @@ const DesignProcess = () => {
                 }}
                 className="snap-center flex-shrink-0 w-full"
               >
-                <div className="flex flex-col items-center text-center p-6 rounded-3xl glass-effect border border-slate-800">
-                  {/* Icon Circle (replacing number) */}
+                <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-slate-800/30 border border-slate-800">
+                  {/* Icon Circle - Static, no animations on mobile for performance */}
                   <div className="relative mb-6">
-                    <motion.div
-                      animate={{
-                        rotate: currentSlide === index ? [0, 360] : 0,
-                      }}
-                      transition={{
-                        duration: 2,
-                        ease: "easeInOut"
-                      }}
-                      className="absolute inset-0 rounded-full"
+                    <div
+                      className={`absolute inset-0 rounded-full transition-opacity duration-300 ${
+                        currentSlide === index ? 'opacity-30' : 'opacity-0'
+                      }`}
                       style={{
-                        background: "conic-gradient(from 0deg, #a855f7, #ec4899, #6366f1, #a855f7)",
+                        background: "linear-gradient(135deg, #a855f7, #ec4899)",
                         filter: "blur(8px)",
                         transform: "scale(1.1)",
                       }}
                     />
                     
-                    <div className="relative w-24 h-24 rounded-full bg-slate-900/80 backdrop-blur-sm flex items-center justify-center border-2 border-purple-500">
-                      <motion.div 
-                        className="text-purple-400"
-                        animate={{
-                          scale: currentSlide === index ? [1, 1.1, 1] : 1,
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: currentSlide === index ? Infinity : 0,
-                          ease: "easeInOut"
-                        }}
-                      >
+                    <div className={`relative w-24 h-24 rounded-full bg-slate-900/80 flex items-center justify-center border-2 transition-colors duration-300 ${
+                      currentSlide === index ? 'border-purple-500' : 'border-slate-700'
+                    }`}>
+                      <div className="text-purple-400">
                         {step.icon}
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
 
