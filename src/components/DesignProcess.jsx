@@ -312,17 +312,6 @@ const DesignProcess = () => {
           </div>
         </div>
       </div>
-
-      {/* Custom CSS for hiding scrollbar */}
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };
