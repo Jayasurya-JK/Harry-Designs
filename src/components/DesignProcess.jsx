@@ -8,6 +8,7 @@ const DesignProcess = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const carouselRef = useRef(null);
+  const isThrottledRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -23,11 +24,10 @@ const DesignProcess = () => {
     if (!isMobile || !carouselRef.current) return;
     
     const carousel = carouselRef.current;
-    let isThrottled = false;
     
     const handleScroll = () => {
-      if (isThrottled) return;
-      isThrottled = true;
+      if (isThrottledRef.current) return;
+      isThrottledRef.current = true;
       
       setTimeout(() => {
         if (carousel) {
@@ -36,12 +36,15 @@ const DesignProcess = () => {
           const newSlide = Math.round(scrollLeft / cardWidth);
           setCurrentSlide(newSlide);
         }
-        isThrottled = false;
+        isThrottledRef.current = false;
       }, 100);
     };
 
     carousel.addEventListener('scroll', handleScroll, { passive: true });
-    return () => carousel.removeEventListener('scroll', handleScroll);
+    return () => {
+      carousel.removeEventListener('scroll', handleScroll);
+      isThrottledRef.current = false; // Reset on cleanup
+    };
   }, [isMobile]);
 
   const processSteps = [
@@ -316,7 +319,6 @@ const DesignProcess = () => {
                 key={step.number}
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                viewport={{ once: true }}
                 transition={{ 
                   delay: index * 0.05, 
                   duration: 0.5,
