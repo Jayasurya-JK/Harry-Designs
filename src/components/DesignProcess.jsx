@@ -302,7 +302,7 @@ const DesignProcess = () => {
                 }}
                 className="snap-center flex-shrink-0 w-full"
               >
-                <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-slate-800/30 border border-slate-800">
+                <div className="flex flex-col items-center text-center p-6 rounded-3xl glass-effect border border-slate-800">
                   {/* Icon Circle - Static, no animations on mobile for performance */}
                   <div className="relative mb-6">
                     <div
