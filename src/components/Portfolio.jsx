@@ -129,32 +129,42 @@ const Portfolio = () => {
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
-      {/* Animated gradient orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
-      />
-      <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"
-      />
+      {/* Animated gradient orbs - Static on mobile */}
+      {!isMobile && (
+        <>
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"
+          />
+        </>
+      )}
+      {isMobile && (
+        <>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-xl opacity-30" />
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-xl opacity-30" />
+        </>
+      )}
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -191,21 +201,21 @@ const Portfolio = () => {
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
             
-            {/* Scrolling brands container */}
+            {/* Scrolling brands container - Stop infinite scroll on mobile */}
             <div className="flex">
               {/* First set */}
               <motion.div
-                animate={{
+                animate={!isMobile ? {
                   x: [0, -scrollDistance],
-                }}
-                transition={{
+                } : {}}
+                transition={!isMobile ? {
                   x: {
                     repeat: Infinity,
                     repeatType: "loop",
                     duration: 30,
                     ease: "linear",
                   },
-                }}
+                } : {}}
                 className="flex gap-8 pr-8"
               >
                 {brands.map((brand, index) => (
@@ -224,10 +234,10 @@ const Portfolio = () => {
                     />
                     <motion.div
                       className="text-6xl text-white relative z-10"
-                      animate={{
-                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
-                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
-                      }}
+                      animate={!isMobile && hoveredItem === brand.name ? {
+                        scale: 1.2,
+                        rotate: [0, -10, 10, 0],
+                      } : {}}
                       transition={{ duration: 0.5 }}
                     >
                       {brand.icon}
@@ -239,51 +249,53 @@ const Portfolio = () => {
                 ))}
               </motion.div>
               
-              {/* Second set (duplicate for seamless loop) */}
-              <motion.div
-                animate={{
-                  x: [0, -scrollDistance],
-                }}
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 30,
-                    ease: "linear",
-                  },
-                }}
-                className="flex gap-8 pr-8"
-              >
-                {brands.map((brand, index) => (
-                  <motion.div
-                    key={`brand-2-${index}`}
-                    whileHover={!isMobile ? { scale: 1.1, y: -10 } : {}}
-                    className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
-                    onMouseEnter={() => !isMobile && setHoveredItem(brand.name)}
-                    onMouseLeave={() => !isMobile && setHoveredItem(null)}
-                  >
+              {/* Second set (duplicate for seamless loop) - Only render on desktop */}
+              {!isMobile && (
+                <motion.div
+                  animate={{
+                    x: [0, -scrollDistance],
+                  }}
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      duration: 30,
+                      ease: "linear",
+                    },
+                  }}
+                  className="flex gap-8 pr-8"
+                >
+                  {brands.map((brand, index) => (
                     <motion.div
-                      className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
-                      animate={{
-                        opacity: !isMobile && hoveredItem === brand.name ? 0.2 : 0,
-                      }}
-                    />
-                    <motion.div
-                      className="text-6xl text-white relative z-10"
-                      animate={{
-                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
-                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
-                      }}
-                      transition={{ duration: 0.5 }}
+                      key={`brand-2-${index}`}
+                      whileHover={{ scale: 1.1, y: -10 }}
+                      className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
+                      onMouseEnter={() => setHoveredItem(brand.name)}
+                      onMouseLeave={() => setHoveredItem(null)}
                     >
-                      {brand.icon}
+                      <motion.div
+                        className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
+                        animate={{
+                          opacity: hoveredItem === brand.name ? 0.2 : 0,
+                        }}
+                      />
+                      <motion.div
+                        className="text-6xl text-white relative z-10"
+                        animate={{
+                          scale: hoveredItem === brand.name ? 1.2 : 1,
+                          rotate: hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
+                        }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        {brand.icon}
+                      </motion.div>
+                      <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
+                        {brand.name}
+                      </p>
                     </motion.div>
-                    <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
-                      {brand.name}
-                    </p>
-                  </motion.div>
-                ))}
-              </motion.div>
+                  ))}
+                </motion.div>
+              )}
             </div>
           </div>
         </motion.div>

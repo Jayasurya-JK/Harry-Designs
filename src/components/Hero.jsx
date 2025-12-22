@@ -1,69 +1,100 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { HiArrowDown } from 'react-icons/hi';
+import { useState, useEffect } from 'react';
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
+  
+  // Disable parallax on mobile for performance
+  const y1 = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, 150]);
+  const y2 = useTransform(scrollY, [0, 500], isMobile ? [0, 0] : [0, -100]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
-      {/* Animated gradient mesh background */}
-      <div className="absolute inset-0">
-        <motion.div
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0"
-        />
-        <motion.div
-          animate={{
-            background: [
-              "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0"
-        />
-      </div>
+      {/* Animated gradient mesh background - Static on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              background: [
+                "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
+                "radial-gradient(circle at 80% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
+                "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
+              ],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute inset-0"
+          />
+          <motion.div
+            animate={{
+              background: [
+                "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
+                "radial-gradient(circle at 20% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
+                "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
+              ],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute inset-0"
+          />
+        </div>
+      )}
+      {isMobile && (
+        <div className="absolute inset-0">
+          <div className="absolute inset-0" style={{background: "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.2) 0%, transparent 50%)"}} />
+          <div className="absolute inset-0" style={{background: "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%)"}} />
+        </div>
+      )}
 
-      {/* Floating geometric shapes */}
-      <motion.div
-        style={{ y: y1 }}
-        animate={{
-          rotate: [0, 360],
-        }}
-        transition={{
-          rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-        }}
-        className="absolute top-1/4 left-10 w-32 h-32 border border-purple-500/20 rounded-lg"
-      />
-      <motion.div
-        style={{ y: y2 }}
-        animate={{
-          rotate: [0, -360],
-        }}
-        transition={{
-          rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-        }}
-        className="absolute bottom-1/4 right-10 w-40 h-40 border border-purple-500/20 rounded-full"
-      />
+      {/* Floating geometric shapes - No rotation on mobile */}
+      {!isMobile && (
+        <>
+          <motion.div
+            style={{ y: y1 }}
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{
+              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+            }}
+            className="absolute top-1/4 left-10 w-32 h-32 border border-purple-500/20 rounded-lg"
+          />
+          <motion.div
+            style={{ y: y2 }}
+            animate={{
+              rotate: [0, -360],
+            }}
+            transition={{
+              rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+            }}
+            className="absolute bottom-1/4 right-10 w-40 h-40 border border-purple-500/20 rounded-full"
+          />
+        </>
+      )}
+      {isMobile && (
+        <>
+          <div className="absolute top-1/4 left-10 w-32 h-32 border border-purple-500/10 rounded-lg" />
+          <div className="absolute bottom-1/4 right-10 w-40 h-40 border border-purple-500/10 rounded-full" />
+        </>
+      )}
 
       {/* Content */}
       <motion.div 
@@ -161,25 +192,35 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator with animation */}
-        <motion.div
-          animate={{ 
-            y: [0, 10, 0],
-            opacity: [0.5, 1, 0.5]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          aria-label="Scroll down to view content"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
-            <HiArrowDown className="text-purple-400 text-2xl" aria-hidden="true" />
+        {/* Scroll indicator with animation - Disable on mobile */}
+        {!isMobile && (
+          <motion.div
+            animate={{ 
+              y: [0, 10, 0],
+              opacity: [0.5, 1, 0.5]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            aria-label="Scroll down to view content"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
+              <HiArrowDown className="text-purple-400 text-2xl" aria-hidden="true" />
+            </div>
+          </motion.div>
+        )}
+        {isMobile && (
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
+              <HiArrowDown className="text-purple-400 text-2xl" aria-hidden="true" />
+            </div>
           </div>
-        </motion.div>
+        )}
       </motion.div>
 
       {/* Grid pattern overlay */}

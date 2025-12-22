@@ -1,17 +1,27 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 import { FaLinkedin, FaInstagram, FaBehance, FaDribbble } from 'react-icons/fa';
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -128,19 +138,24 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Decorative animated element */}
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 90, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="hidden lg:block mt-12 w-64 h-64 border border-purple-500/20 rounded-lg"
-            />
+            {/* Decorative animated element - Remove rotation on mobile */}
+            {!isMobile && (
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 90, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="hidden lg:block mt-12 w-64 h-64 border border-purple-500/20 rounded-lg"
+              />
+            )}
+            {isMobile && (
+              <div className="hidden lg:block mt-12 w-64 h-64 border border-purple-500/20 rounded-lg" />
+            )}
           </motion.div>
 
           {/* Contact Form */}
