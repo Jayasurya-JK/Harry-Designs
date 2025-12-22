@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FaSearch, FaChartBar, FaLightbulb, FaPalette, FaDesktop, FaSyncAlt, FaCheckCircle, FaHeadset } from 'react-icons/fa';
 
 const DesignProcess = () => {
@@ -19,34 +19,30 @@ const DesignProcess = () => {
   }, []);
 
   // Throttled scroll handler for better mobile performance
-  const throttledHandleScroll = useCallback(() => {
+  useEffect(() => {
+    if (!isMobile || !carouselRef.current) return;
+    
+    const carousel = carouselRef.current;
     let isThrottled = false;
     
-    return () => {
+    const handleScroll = () => {
       if (isThrottled) return;
       isThrottled = true;
       
       setTimeout(() => {
-        if (carouselRef.current) {
-          const scrollLeft = carouselRef.current.scrollLeft;
-          const cardWidth = carouselRef.current.offsetWidth;
+        if (carousel) {
+          const scrollLeft = carousel.scrollLeft;
+          const cardWidth = carousel.offsetWidth;
           const newSlide = Math.round(scrollLeft / cardWidth);
           setCurrentSlide(newSlide);
         }
         isThrottled = false;
       }, 100);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile || !carouselRef.current) return;
-    
-    const carousel = carouselRef.current;
-    const handleScroll = throttledHandleScroll();
 
     carousel.addEventListener('scroll', handleScroll, { passive: true });
     return () => carousel.removeEventListener('scroll', handleScroll);
-  }, [isMobile, throttledHandleScroll]);
+  }, [isMobile]);
 
   const processSteps = [
     {
