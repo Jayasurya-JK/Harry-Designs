@@ -149,8 +149,7 @@ const DesignProcess = () => {
         {/* Desktop Grid Layout (>= 1024px) */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-6 relative">
           {/* Horizontal connecting line for desktop */}
-          <div className="absolute top-12 left-0 right-0 h-1 bg-gradient-to-r from-[#a855f7] via-[#ec4899] to-[#a855f7] opacity-30 hidden lg:block" 
-               style={{ top: '3rem' }} />
+          <div className="absolute top-12 left-0 right-0 h-1 bg-gradient-to-r from-[#a855f7] via-[#ec4899] to-[#a855f7] opacity-30 hidden lg:block" />
           
           {processSteps.map((step, index) => (
             <motion.div
@@ -216,7 +215,7 @@ const DesignProcess = () => {
         {/* Mobile/Tablet Horizontal Scroll Layout (< 1024px) */}
         <div className="lg:hidden relative">
           {/* Horizontal connecting line for mobile */}
-          <div className="absolute top-12 left-0 right-0 h-1 bg-gradient-to-r from-[#a855f7] via-[#ec4899] to-[#a855f7] opacity-30" 
+          <div className="absolute h-1 bg-gradient-to-r from-[#a855f7] via-[#ec4899] to-[#a855f7] opacity-30" 
                style={{ top: '3rem', left: '5%', right: '5%' }} />
           
           {/* Scrollable container */}
@@ -224,8 +223,6 @@ const DesignProcess = () => {
             ref={scrollContainerRef}
             className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide"
             style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
               WebkitOverflowScrolling: 'touch'
             }}
           >
@@ -241,7 +238,6 @@ const DesignProcess = () => {
                 }}
                 className="flex-shrink-0 snap-start w-[85vw] sm:w-[75vw]"
                 style={{ 
-                  scrollSnapAlign: 'start',
                   maxWidth: '500px'
                 }}
               >
