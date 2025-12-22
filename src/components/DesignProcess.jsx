@@ -184,7 +184,6 @@ const DesignProcess = () => {
           <div className="relative grid grid-cols-4 gap-6 pt-12 pb-12">
             {processSteps.map((step, index) => {
               const isOdd = step.number % 2 === 1;
-              const isFirstHalf = index < 4;
               
               return (
                 <div key={step.number} className="relative flex flex-col items-center">
