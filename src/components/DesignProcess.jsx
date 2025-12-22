@@ -1,6 +1,9 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 
+// Grid layout constants
+const DESKTOP_COLUMNS = 4;
+
 const DesignProcess = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -86,8 +89,8 @@ const DesignProcess = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
           {processSteps.map((step, index) => {
             const isHovered = hoveredCard === step.number;
-            const col = index % 4;
-            const row = Math.floor(index / 4);
+            const col = index % DESKTOP_COLUMNS;
+            const row = Math.floor(index / DESKTOP_COLUMNS);
 
             return (
               <motion.div
@@ -135,7 +138,7 @@ const DesignProcess = () => {
                   />
 
                   {/* Connecting line to next card (horizontal, desktop only) */}
-                  {col < 3 && (
+                  {col < DESKTOP_COLUMNS - 1 && (
                     <div className="hidden lg:block absolute top-20 -right-8 w-8 h-px bg-gradient-to-r from-purple-500/50 to-transparent" />
                   )}
 
