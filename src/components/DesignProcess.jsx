@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { FaSearch, FaChartBar, FaLightbulb, FaPalette, FaDesktop, FaSyncAlt, FaCheckCircle, FaHeadset } from 'react-icons/fa';
 
 const DesignProcess = () => {
@@ -18,20 +18,35 @@ const DesignProcess = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Throttled scroll handler for better mobile performance
+  const throttledHandleScroll = useCallback(() => {
+    let isThrottled = false;
+    
+    return () => {
+      if (isThrottled) return;
+      isThrottled = true;
+      
+      setTimeout(() => {
+        if (carouselRef.current) {
+          const scrollLeft = carouselRef.current.scrollLeft;
+          const cardWidth = carouselRef.current.offsetWidth;
+          const newSlide = Math.round(scrollLeft / cardWidth);
+          setCurrentSlide(newSlide);
+        }
+        isThrottled = false;
+      }, 100);
+    };
+  }, []);
+
   useEffect(() => {
     if (!isMobile || !carouselRef.current) return;
     
     const carousel = carouselRef.current;
-    const handleScroll = () => {
-      const scrollLeft = carousel.scrollLeft;
-      const cardWidth = carousel.offsetWidth;
-      const newSlide = Math.round(scrollLeft / cardWidth);
-      setCurrentSlide(newSlide);
-    };
+    const handleScroll = throttledHandleScroll();
 
-    carousel.addEventListener('scroll', handleScroll);
+    carousel.addEventListener('scroll', handleScroll, { passive: true });
     return () => carousel.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+  }, [isMobile, throttledHandleScroll]);
 
   const processSteps = [
     {
@@ -92,13 +107,13 @@ const DesignProcess = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isMobile ? 0.15 : 0.25 } : { opacity: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute top-20 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl md:blur-2xl"
+          className="absolute top-20 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-xl md:blur-2xl"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: isMobile ? 0.15 : 0.25 } : { opacity: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl md:blur-2xl"
+          className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-xl md:blur-2xl"
         />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -196,21 +211,35 @@ const DesignProcess = () => {
                       transition={{ delay: index * 0.15 + 0.5, duration: 0.6 }}
                     />
 
-                    {/* Icon Circle - Static gradient on hover only */}
+                    {/* Icon Circle - Border pulse animation on hover */}
                     <div className="relative mb-4 flex justify-center">
-                      {/* Static gradient background - only visible on hover */}
-                      <div
-                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                          background: "conic-gradient(from 0deg, #a855f7, #ec4899, #6366f1, #a855f7)",
-                          filter: "blur(10px)",
-                          transform: "scale(1.15)",
-                        }}
-                      />
-                      
-                      {/* Icon Container */}
+                      {/* Icon Container with border pulse */}
                       <motion.div
-                        className="relative w-24 h-24 rounded-full bg-slate-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-slate-800 group-hover:border-purple-500 transition-colors duration-300"
+                        className="relative w-24 h-24 rounded-full bg-slate-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-slate-800 transition-all duration-300 hover:border-transparent"
+                        style={{
+                          boxShadow: "0 0 0 0 rgba(168, 85, 247, 0)"
+                        }}
+                        whileHover={{
+                          boxShadow: [
+                            "0 0 0 0 rgba(168, 85, 247, 0.7)",
+                            "0 0 0 8px rgba(168, 85, 247, 0)",
+                            "0 0 0 0 rgba(236, 72, 153, 0.7)",
+                            "0 0 0 8px rgba(236, 72, 153, 0)"
+                          ],
+                          border: ["2px solid rgba(168, 85, 247, 0.8)", "2px solid rgba(236, 72, 153, 0.8)", "2px solid rgba(168, 85, 247, 0.8)"]
+                        }}
+                        transition={{
+                          boxShadow: {
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeOut"
+                          },
+                          border: {
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }
+                        }}
                       >
                         <motion.div 
                           className="text-purple-400 group-hover:text-purple-300 transition-colors"
@@ -273,10 +302,6 @@ const DesignProcess = () => {
                         ? 'bg-gradient-to-br from-[#a855f7] to-[#ec4899] text-white scale-110 shadow-lg shadow-purple-500/50'
                         : 'bg-slate-800 text-slate-500 scale-90'
                     }`}
-                    animate={{
-                      scale: currentSlide === index ? 1.1 : 0.9,
-                    }}
-                    transition={{ duration: 0.3 }}
                   >
                     {step.number}
                   </motion.div>
@@ -295,6 +320,7 @@ const DesignProcess = () => {
                 key={step.number}
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                viewport={{ once: true }}
                 transition={{ 
                   delay: index * 0.05, 
                   duration: 0.5,
@@ -324,14 +350,6 @@ const DesignProcess = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Vertical Connector */}
-                  <motion.div 
-                    className="w-0.5 h-16 bg-gradient-to-b from-[#a855f7] to-transparent mb-6"
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  />
 
                   {/* Content */}
                   <div className="space-y-4">

@@ -46,6 +46,21 @@
     @apply bg-slate-950 text-white;
   }
   
+  /* Mobile performance optimizations */
+  @media (max-width: 768px) {
+    * {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    
+    /* Add will-change for better mobile performance on animated elements */
+    [class*="motion-"],
+    .glass-effect,
+    [class*="animate"] {
+      will-change: transform;
+    }
+  }
+  
   /* Respect user's motion preferences */
   @media (prefers-reduced-motion: reduce) {
     *,

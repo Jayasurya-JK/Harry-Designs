@@ -15,7 +15,8 @@ const About = () => {
     offset: ["start end", "end start"]
   });
   
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  // Disable parallax on mobile for performance
+  const y = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [100, -100]);
 
   // Detect mobile devices
   useEffect(() => {
@@ -94,33 +95,43 @@ const About = () => {
 
   return (
     <section id="about" className="relative py-20 md:py-32 bg-slate-900 overflow-hidden" ref={ref}>
-      {/* Background decorative elements with enhanced animations */}
-      <motion.div 
-        style={{ y }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-      />
-      <motion.div 
-        style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]) }}
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
-      />
+      {/* Background decorative elements - Static on mobile */}
+      {!isMobile && (
+        <>
+          <motion.div 
+            style={{ y }}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          />
+          <motion.div 
+            style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]) }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+          />
+        </>
+      )}
+      {isMobile && (
+        <>
+          <div className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-xl opacity-30" />
+          <div className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-xl opacity-30" />
+        </>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Hero Section - Two Column Layout */}
@@ -132,7 +143,7 @@ const About = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col justify-center space-y-6"
           >
-            {/* Chip badge with floating/pulsing effect */}
+            {/* Chip badge - Remove pulsing/floating animations on mobile */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { 
@@ -142,30 +153,26 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium w-fit"
             >
-              <motion.span 
-                className="w-2 h-2 bg-emerald-400 rounded-full"
-                animate={{ 
-                  scale: [1, 1.3, 1],
-                  opacity: [1, 0.5, 1]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.span
-                animate={{ 
-                  y: [0, -2, 0],
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
+              {!isMobile && (
+                <motion.span 
+                  className="w-2 h-2 bg-emerald-400 rounded-full"
+                  animate={{ 
+                    scale: [1, 1.3, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              )}
+              {isMobile && (
+                <span className="w-2 h-2 bg-emerald-400 rounded-full" />
+              )}
+              <span>
                 Available for logo &amp; packaging projects
-              </motion.span>
+              </span>
             </motion.div>
 
             {/* Large heading with enhanced text animations */}
@@ -484,14 +491,14 @@ const About = () => {
               {/* Designer Photo */}
               <div className="relative h-full flex items-center justify-center">
                 <motion.div
-                  animate={{
+                  animate={!isMobile ? {
                     y: [0, -20, 0],
-                  }}
-                  transition={{
+                  } : {}}
+                  transition={!isMobile ? {
                     duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut"
-                  }}
+                  } : {}}
                   className="relative"
                 >
                   {/* Photo placeholder - using a professional avatar */}
@@ -508,29 +515,39 @@ const About = () => {
                     )}
                   </div>
                   
-                  {/* Decorative elements */}
-                  <motion.div
-                    animate={{
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-12 h-12 md:w-20 md:h-20 border-2 md:border-4 border-purple-500/50 rounded-full"
-                  />
-                  <motion.div
-                    animate={{
-                      rotate: [0, -360],
-                    }}
-                    transition={{
-                      duration: 15,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-10 h-10 md:w-16 md:h-16 border-2 md:border-4 border-pink-500/50 rounded-lg"
-                  />
+                  {/* Decorative elements - No rotation on mobile */}
+                  {!isMobile && (
+                    <>
+                      <motion.div
+                        animate={{
+                          rotate: [0, 360],
+                        }}
+                        transition={{
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-12 h-12 md:w-20 md:h-20 border-2 md:border-4 border-purple-500/50 rounded-full"
+                      />
+                      <motion.div
+                        animate={{
+                          rotate: [0, -360],
+                        }}
+                        transition={{
+                          duration: 15,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-10 h-10 md:w-16 md:h-16 border-2 md:border-4 border-pink-500/50 rounded-lg"
+                      />
+                    </>
+                  )}
+                  {isMobile && (
+                    <>
+                      <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-12 h-12 md:w-20 md:h-20 border-2 md:border-4 border-purple-500/50 rounded-full" />
+                      <div className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-10 h-10 md:w-16 md:h-16 border-2 md:border-4 border-pink-500/50 rounded-lg" />
+                    </>
+                  )}
                 </motion.div>
               </div>
               
