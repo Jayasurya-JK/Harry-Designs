@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { FaSearch, FaChartBar, FaLightbulb, FaPalette, FaDesktop, FaSyncAlt, FaCheckCircle, FaHeadset } from 'react-icons/fa';
 
 const DesignProcess = () => {
   const ref = useRef(null);
@@ -36,42 +37,50 @@ const DesignProcess = () => {
     {
       number: 1,
       title: "Discovery",
-      description: "Understanding your brand, goals, and target audience"
+      description: "Understanding your brand, goals, and target audience",
+      icon: <FaSearch className="text-4xl md:text-5xl" />
     },
     {
       number: 2,
       title: "Research",
-      description: "Market analysis and competitor research"
+      description: "Market analysis and competitor research",
+      icon: <FaChartBar className="text-4xl md:text-5xl" />
     },
     {
       number: 3,
       title: "Conceptualization",
-      description: "Developing creative concepts and design directions"
+      description: "Developing creative concepts and design directions",
+      icon: <FaLightbulb className="text-4xl md:text-5xl" />
     },
     {
       number: 4,
       title: "Design & Refinement",
-      description: "Creating and refining the final design"
+      description: "Creating and refining the final design",
+      icon: <FaPalette className="text-4xl md:text-5xl" />
     },
     {
       number: 5,
       title: "Presentation",
-      description: "Presenting the design with rationale and context"
+      description: "Presenting the design with rationale and context",
+      icon: <FaDesktop className="text-4xl md:text-5xl" />
     },
     {
       number: 6,
       title: "Revisions",
-      description: "Incorporating feedback and making adjustments"
+      description: "Incorporating feedback and making adjustments",
+      icon: <FaSyncAlt className="text-4xl md:text-5xl" />
     },
     {
       number: 7,
       title: "Finalization",
-      description: "Preparing files for production and delivery"
+      description: "Preparing files for production and delivery",
+      icon: <FaCheckCircle className="text-4xl md:text-5xl" />
     },
     {
       number: 8,
       title: "Support",
-      description: "Ongoing support and design consultation"
+      description: "Ongoing support and design consultation",
+      icon: <FaHeadset className="text-4xl md:text-5xl" />
     }
   ];
 
@@ -159,84 +168,123 @@ const DesignProcess = () => {
           </motion.div>
         )}
 
-        {/* Desktop/Tablet Grid - Hidden on Mobile */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-          {processSteps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ 
-                delay: index * 0.1, 
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              whileHover={{ 
-                scale: 1.05,
-                y: -10,
-                transition: { duration: 0.3 }
-              }}
-              className="flex flex-col items-center text-center group cursor-pointer"
-            >
-              {/* Numbered Circle with Rotating Ring */}
-              <div className="relative mb-8">
-                {/* Rotating Ring Effect */}
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: "conic-gradient(from 0deg, #a855f7, #ec4899, #6366f1, #a855f7)",
-                    filter: "blur(8px)",
-                    transform: "scale(1.1)",
-                  }}
-                />
-                
-                {/* Inner Circle */}
-                <motion.div
-                  className="relative w-20 h-20 rounded-full bg-slate-900/80 backdrop-blur-sm flex items-center justify-center border-2 border-slate-800 group-hover:border-purple-500 transition-colors duration-300"
-                >
-                  <span className="text-3xl font-bold text-white z-10">
-                    {step.number}
-                  </span>
-                </motion.div>
+        {/* Desktop Zigzag Layout - Hidden on Mobile */}
+        <div className="hidden md:block relative">
+          {/* Central Timeline */}
+          <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2">
+            <motion.div 
+              className="h-full bg-gradient-to-r from-transparent via-purple-500 to-transparent"
+              initial={{ scaleX: 0 }}
+              animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
+          </div>
 
-                {/* Hover Glow Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    boxShadow: "0 0 30px rgba(168, 85, 247, 0.6)",
-                  }}
-                />
-              </div>
+          {/* Zigzag Steps Container */}
+          <div className="relative grid grid-cols-4 gap-6 pt-12 pb-12">
+            {processSteps.map((step, index) => {
+              const isOdd = step.number % 2 === 1;
+              const isFirstHalf = index < 4;
+              
+              return (
+                <div key={step.number} className="relative flex flex-col items-center">
+                  {/* Step positioned above or below timeline */}
+                  <motion.div
+                    initial={{ opacity: 0, y: isOdd ? -50 : 50 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: isOdd ? -50 : 50 }}
+                    transition={{ 
+                      delay: index * 0.15, 
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      y: isOdd ? -10 : 10,
+                      transition: { duration: 0.3 }
+                    }}
+                    className={`group cursor-pointer ${isOdd ? 'mb-32' : 'mt-32'}`}
+                  >
+                    {/* Connecting Line to Timeline */}
+                    <motion.div 
+                      className={`absolute left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-purple-500 to-transparent ${
+                        isOdd ? 'top-full h-32' : 'bottom-full h-32 rotate-180'
+                      }`}
+                      initial={{ scaleY: 0 }}
+                      animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+                      transition={{ delay: index * 0.15 + 0.5, duration: 0.6 }}
+                    />
 
-              {/* Vertical Connecting Line */}
-              <motion.div 
-                className="w-0.5 h-12 bg-gradient-to-b from-[#a855f7] to-transparent mb-6"
-                initial={{ scaleY: 0 }}
-                animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-                transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              />
+                    {/* Icon Circle with Rotating Ring */}
+                    <div className="relative mb-4 flex justify-center">
+                      {/* Rotating Ring Effect */}
+                      <motion.div
+                        animate={{
+                          rotate: [0, 360],
+                        }}
+                        transition={{
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          background: "conic-gradient(from 0deg, #a855f7, #ec4899, #6366f1, #a855f7)",
+                          filter: "blur(10px)",
+                          transform: "scale(1.15)",
+                        }}
+                      />
+                      
+                      {/* Icon Container */}
+                      <motion.div
+                        className="relative w-24 h-24 rounded-full bg-slate-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-slate-800 group-hover:border-purple-500 transition-colors duration-300"
+                        whileHover={{ 
+                          rotate: [0, -5, 5, 0],
+                          transition: { duration: 0.5 }
+                        }}
+                      >
+                        <motion.div 
+                          className="text-purple-400 group-hover:text-purple-300 transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          {step.icon}
+                        </motion.div>
+                      </motion.div>
 
-              {/* Card Content */}
-              <div className="space-y-3">
-                <motion.h3
-                  className="text-xl md:text-2xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300"
-                >
-                  {step.title}
-                </motion.h3>
-                <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                      {/* Hover Glow Effect */}
+                      <motion.div
+                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                          boxShadow: "0 0 40px rgba(168, 85, 247, 0.7)",
+                        }}
+                      />
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="text-center space-y-2 px-2">
+                      <motion.h3
+                        className="text-lg font-bold text-white group-hover:text-purple-400 transition-colors duration-300"
+                      >
+                        {step.title}
+                      </motion.h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+
+                    {/* Step Number Badge */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={isInView ? { scale: 1 } : { scale: 0 }}
+                      transition={{ delay: index * 0.15 + 0.7, duration: 0.3 }}
+                      className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xs font-bold shadow-lg"
+                    >
+                      {step.number}
+                    </motion.div>
+                  </motion.div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Mobile Carousel */}
@@ -292,7 +340,7 @@ const DesignProcess = () => {
                 className="snap-center flex-shrink-0 w-full"
               >
                 <div className="flex flex-col items-center text-center p-6 rounded-3xl glass-effect border border-slate-800">
-                  {/* Numbered Circle */}
+                  {/* Icon Circle (replacing number) */}
                   <div className="relative mb-6">
                     <motion.div
                       animate={{
@@ -311,9 +359,19 @@ const DesignProcess = () => {
                     />
                     
                     <div className="relative w-24 h-24 rounded-full bg-slate-900/80 backdrop-blur-sm flex items-center justify-center border-2 border-purple-500">
-                      <span className="text-4xl font-bold text-white z-10">
-                        {step.number}
-                      </span>
+                      <motion.div 
+                        className="text-purple-400"
+                        animate={{
+                          scale: currentSlide === index ? [1, 1.1, 1] : 1,
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: currentSlide === index ? Infinity : 0,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {step.icon}
+                      </motion.div>
                     </div>
                   </div>
 
