@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { FaApple, FaAmazon, FaGoogle, FaCoffee, FaLeaf, FaGem, FaWineBottle, FaTshirt, FaShoppingCart, FaMusic, FaFilm, FaCube, FaPalette, FaBox } from 'react-icons/fa';
 import { SiNike, SiCocacola, SiStarbucks, SiAdidas, SiMcdonalds, SiSpotify, SiNetflix } from 'react-icons/si';
 
@@ -12,8 +12,8 @@ const Portfolio = () => {
   const [showAll, setShowAll] = useState(false);
   const [previousFilter, setPreviousFilter] = useState('all');
 
-  // Case Studies Data - initialized directly in state
-  const [caseStudies, setCaseStudies] = useState([
+  // Case Studies Data - memoized to avoid recreation on each render
+  const initialCaseStudies = useMemo(() => [
     {
       id: 1,
       name: 'Aster Snacks',
@@ -80,7 +80,9 @@ const Portfolio = () => {
       color: 'from-slate-700 via-gray-600 to-zinc-500',
       icon: <FaTshirt />
     }
-  ]);
+  ], []);
+
+  const [caseStudies, setCaseStudies] = useState(initialCaseStudies);
 
   // Detect mobile devices
   useEffect(() => {
