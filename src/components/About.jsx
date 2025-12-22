@@ -17,6 +17,7 @@ const About = () => {
   
   // Disable parallax on mobile for performance
   const y = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [100, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [-100, 100]);
 
   // Detect mobile devices
   useEffect(() => {
@@ -112,7 +113,7 @@ const About = () => {
             className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
           />
           <motion.div 
-            style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]) }}
+            style={{ y: y2 }}
             animate={{
               scale: [1, 1.3, 1],
               opacity: [0.3, 0.5, 0.3],
