@@ -146,6 +146,72 @@ const About = () => {
           </p>
         </motion.div>
 
+        {/* Signature Strengths Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {/* Left Side: Headline */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col justify-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block mb-4"
+            >
+              <span className="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium">
+                About (name)
+              </span>
+            </motion.div>
+            <h3 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+              Signature strengths
+            </h3>
+            <p className="text-lg md:text-xl text-slate-400">
+              Clean marks • Bold shelf impact
+            </p>
+          </motion.div>
+
+          {/* Right Side: Glassmorphism Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
+          >
+            <div className="glass-effect rounded-3xl p-6 md:p-8 space-y-4">
+              {/* Two small stat cards in a row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="glass-effect rounded-2xl p-4">
+                  <div className="text-xs text-slate-500 mb-1">Avg. turnaround</div>
+                  <div className="text-2xl font-bold text-white">5–10 days</div>
+                </div>
+                <div className="glass-effect rounded-2xl p-4">
+                  <div className="text-xs text-slate-500 mb-1">Deliverables</div>
+                  <div className="text-lg font-bold text-white">AI • PDF • PNG</div>
+                </div>
+              </div>
+
+              {/* Wide design style card */}
+              <div className="glass-effect rounded-2xl p-4">
+                <div className="text-xs text-slate-500 mb-2">Design style</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-lg font-bold text-white">Minimal, confident, modern</div>
+                  <span className="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-xs font-medium whitespace-nowrap ml-2">
+                    Shelf-first
+                  </span>
+                </div>
+              </div>
+
+              {/* Tip line */}
+              <div className="text-xs text-slate-500 italic mt-4 pt-4 border-t border-white/5">
+                <span className="font-semibold text-slate-400">Tip:</span> Replace this hero card with your best packaging mockup grid or Dribbble shots.
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
         {/* New Layout: Designer Photo + Why Harry Section */}
         {/* Mobile: Photo Right, Why Harry Left (side by side) | Desktop: Why Harry Left, Photo Right */}
         <div className="grid grid-cols-2 gap-6 md:gap-8 mb-16">
