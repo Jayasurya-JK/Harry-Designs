@@ -278,11 +278,6 @@ const DesignProcess = () => {
           <div 
             ref={carouselRef}
             className="overflow-x-auto snap-x snap-mandatory scrollbar-hide flex gap-4 px-4 pb-8"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch'
-            }}
           >
             {processSteps.map((step, index) => (
               <motion.div
