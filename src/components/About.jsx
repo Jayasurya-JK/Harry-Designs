@@ -2,6 +2,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { FaPalette, FaBox, FaLightbulb, FaAward, FaFigma, FaHeart, FaRocket, FaStar, FaBolt } from 'react-icons/fa';
 import { SiAdobeillustrator, SiAdobephotoshop, SiAdobeindesign, SiSketch, SiCanva, SiBlender } from 'react-icons/si';
+import DesignProcess from './DesignProcess';
 
 const About = () => {
   const ref = useRef(null);
@@ -404,6 +405,9 @@ const About = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Design Process Section */}
+        <DesignProcess />
 
         {/* Skills Section - now below */}
         <motion.div
