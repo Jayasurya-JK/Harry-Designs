@@ -1,189 +1,114 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { HiArrowDown } from 'react-icons/hi';
+import ParallaxGallery from './ParallaxGallery';
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
-      {/* Animated gradient mesh background */}
+    <section id="home" className="relative min-h-screen flex items-center bg-slate-950 overflow-hidden">
+      {/* Background with simple gradient mesh to not compete with gallery */}
       <div className="absolute inset-0">
-        <motion.div
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0"
-        />
-        <motion.div
-          animate={{
-            background: [
-              "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0"
-        />
       </div>
 
-      {/* Floating geometric shapes */}
-      <motion.div
-        style={{ y: y1 }}
-        animate={{
-          rotate: [0, 360],
-        }}
-        transition={{
-          rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-        }}
-        className="absolute top-1/4 left-10 w-32 h-32 border border-purple-500/20 rounded-lg"
-      />
-      <motion.div
-        style={{ y: y2 }}
-        animate={{
-          rotate: [0, -360],
-        }}
-        transition={{
-          rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-        }}
-        className="absolute bottom-1/4 right-10 w-40 h-40 border border-purple-500/20 rounded-full"
-      />
+      <div className="w-full relative z-10 pt-20 lg:pt-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-full">
 
-      {/* Content */}
-      <motion.div 
-        style={{ opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          {/* Subtitle with stagger effect */}
+          {/* LEFT COLUMN: Text Content - 50% Width */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="mb-6"
+            className="text-left order-1 lg:order-1 flex flex-col justify-center h-full px-8 lg:pl-20 xl:pl-32 z-20"
           >
-            <span className="text-purple-400 text-sm md:text-base tracking-[0.3em] uppercase font-medium">
-              Award-Winning Designer
-            </span>
-          </motion.div>
-
-          {/* Main heading with character animation effect */}
-          <motion.h1
-            className="text-5xl md:text-7xl lg:text-9xl font-display font-bold mb-6 md:mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <motion.span 
-              className="block text-gradient"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="max-w-3xl"
             >
-              Creative
-            </motion.span>
-            <motion.span 
-              className="block text-white"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Designer
-            </motion.span>
-          </motion.h1>
+              {/* Tagline Label */}
+              <motion.span
+                className="block text-purple-400 text-xs md:text-sm tracking-[0.2em] uppercase font-bold mb-4 md:mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+              >
+                Crafting Premium Logos & Packaging
+              </motion.span>
 
-          <motion.p
-            className="text-lg md:text-2xl lg:text-3xl text-slate-400 mb-6 md:mb-8 font-light max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-          >
-            Crafting Premium Logos & Product Packaging
-          </motion.p>
+              {/* Main Headline */}
+              <motion.h1
+                className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1] tracking-tight text-white"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="flex flex-col">
+                  <span className="block whitespace-nowrap">
+                    Crafting <span className="font-display italic font-normal text-purple-300">Meaningful</span>
+                  </span>
+                  <span className="block">
+                    Brands Through Design
+                  </span>
+                </div>
+              </motion.h1>
 
-          <motion.p
-            className="text-sm md:text-base lg:text-lg text-slate-500 max-w-2xl mx-auto mb-10 md:mb-12 px-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            Transforming brands with stunning visual identities and memorable packaging designs that leave lasting impressions
-          </motion.p>
+              {/* Description */}
+              <motion.p
+                className="text-sm md:text-lg text-slate-300 font-light leading-relaxed max-w-xl mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+              >
+                Transforming brands with stunning visual identities and memorable packaging designs that leave lasting impressions.
+              </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.a
-              href="#portfolio"
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 60px rgba(120, 119, 198, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative px-8 py-4 bg-gradient-dark text-white rounded-full font-semibold shadow-lg overflow-hidden"
-            >
-              <span className="relative z-10">View Portfolio</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 glass-effect text-white rounded-full font-semibold border border-purple-500/30 hover:border-purple-400/50 transition-all"
-            >
-              Get in Touch
-            </motion.a>
-          </motion.div>
-        </motion.div>
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+                className="flex flex-wrap gap-4"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full md:w-auto px-8 py-4 bg-[#ccff00] text-black rounded-full font-bold text-lg hover:bg-[#b3e600] transition-colors"
+                >
+                  Book a demo
+                </motion.button>
+              </motion.div>
+            </motion.div>
 
-        {/* Scroll indicator with animation */}
-        <motion.div
-          animate={{ 
-            y: [0, 10, 0],
-            opacity: [0.5, 1, 0.5]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          aria-label="Scroll down to view content"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
-            <HiArrowDown className="text-purple-400 text-2xl" aria-hidden="true" />
+            {/* Scroll indicator - Only visible on desktop/landscape */}
+            <motion.div
+              animate={{
+                y: [0, 10, 0],
+                opacity: [0.5, 1, 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute bottom-8 left-8 hidden lg:block"
+            >
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
+                <HiArrowDown className="text-purple-400 text-2xl" />
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT COLUMN: Parallax Gallery - 50% Width */}
+          <div className="order-2 lg:order-2 h-auto lg:h-screen w-full flex items-center justify-center relative overflow-hidden">
+            {/* Gradient overlay on the left to blend with text */}
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
+            <ParallaxGallery />
           </div>
-        </motion.div>
-      </motion.div>
+
+        </div>
+      </div>
 
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
     </section>
   );
 };

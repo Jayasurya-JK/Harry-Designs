@@ -45,90 +45,90 @@ const Portfolio = () => {
 
   // Enhanced portfolio items with brand names and realistic projects
   const portfolioItems = [
-    { 
-      id: 1, 
-      category: 'logo', 
-      title: 'Tech Startup Logo', 
+    {
+      id: 1,
+      category: 'logo',
+      title: 'Tech Startup Logo',
       client: 'TechFlow',
       icon: <FaApple />,
       color: 'from-blue-600 via-cyan-500 to-teal-400',
       description: 'Modern minimal logo for tech company',
       size: 'tall' // for masonry effect
     },
-    { 
-      id: 2, 
-      category: 'packaging', 
-      title: 'Organic Tea Packaging', 
+    {
+      id: 2,
+      category: 'packaging',
+      title: 'Organic Tea Packaging',
       client: 'Pure Leaf',
       icon: <FaLeaf />,
       color: 'from-emerald-600 via-green-500 to-teal-500',
       description: 'Eco-friendly tea box design',
       size: 'wide'
     },
-    { 
-      id: 3, 
-      category: 'logo', 
-      title: 'Restaurant Brand Identity', 
+    {
+      id: 3,
+      category: 'logo',
+      title: 'Restaurant Brand Identity',
       client: 'Bistro Deluxe',
       icon: <FaCoffee />,
       color: 'from-orange-600 via-red-500 to-rose-500',
       description: 'Complete branding package',
       size: 'normal'
     },
-    { 
-      id: 4, 
-      category: 'packaging', 
-      title: 'Luxury Cosmetic Box', 
+    {
+      id: 4,
+      category: 'packaging',
+      title: 'Luxury Cosmetic Box',
       client: 'Glow Beauty',
       icon: <FaGem />,
       color: 'from-rose-600 via-pink-500 to-fuchsia-500',
       description: 'Premium cosmetic packaging',
       size: 'normal'
     },
-    { 
-      id: 5, 
-      category: 'logo', 
-      title: 'Fitness Brand Logo', 
+    {
+      id: 5,
+      category: 'logo',
+      title: 'Fitness Brand Logo',
       client: 'PowerFit',
       icon: <SiNike />,
       color: 'from-amber-600 via-orange-500 to-red-500',
       description: 'Dynamic sports brand identity',
       size: 'wide'
     },
-    { 
-      id: 6, 
-      category: 'packaging', 
-      title: 'Artisan Chocolate', 
+    {
+      id: 6,
+      category: 'packaging',
+      title: 'Artisan Chocolate',
       client: 'Cacao Noir',
       icon: <SiCocacola />,
       color: 'from-amber-700 via-yellow-600 to-orange-500',
       description: 'Premium chocolate packaging',
       size: 'tall'
     },
-    { 
-      id: 7, 
-      category: 'logo', 
-      title: 'Fashion Label Identity', 
+    {
+      id: 7,
+      category: 'logo',
+      title: 'Fashion Label Identity',
       client: 'Essence Apparel',
       icon: <FaTshirt />,
       color: 'from-purple-600 via-indigo-500 to-blue-500',
       description: 'Elegant fashion brand',
       size: 'normal'
     },
-    { 
-      id: 8, 
-      category: 'packaging', 
-      title: 'Premium Wine Label', 
+    {
+      id: 8,
+      category: 'packaging',
+      title: 'Premium Wine Label',
       client: 'Vineyard Estate',
       icon: <FaWineBottle />,
       color: 'from-red-700 via-rose-600 to-pink-500',
       description: 'Sophisticated wine packaging',
       size: 'normal'
     },
-    { 
-      id: 9, 
-      category: 'logo', 
-      title: 'Coffee House Brand', 
+    {
+      id: 9,
+      category: 'logo',
+      title: 'Coffee House Brand',
       client: 'Urban Brew',
       icon: <SiStarbucks />,
       color: 'from-yellow-700 via-amber-600 to-orange-600',
@@ -137,8 +137,8 @@ const Portfolio = () => {
     },
   ];
 
-  const filteredItems = filter === 'all' 
-    ? portfolioItems 
+  const filteredItems = filter === 'all'
+    ? portfolioItems
     : portfolioItems.filter(item => item.category === filter);
 
   // Featured items - show only 2 initially
@@ -156,7 +156,7 @@ const Portfolio = () => {
     <section id="portfolio" className="relative py-20 md:py-32 bg-slate-950 overflow-hidden" ref={ref}>
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-      
+
       {/* Animated gradient orbs */}
       <motion.div
         animate={{
@@ -183,7 +183,7 @@ const Portfolio = () => {
         }}
         className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"
       />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -218,7 +218,7 @@ const Portfolio = () => {
             {/* Gradient overlays for smooth edges */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
-            
+
             {/* Scrolling brands container */}
             <div className="flex">
               {/* First set */}
@@ -266,7 +266,7 @@ const Portfolio = () => {
                   </motion.div>
                 ))}
               </motion.div>
-              
+
               {/* Second set (duplicate for seamless loop) */}
               <motion.div
                 animate={{
@@ -345,8 +345,8 @@ const Portfolio = () => {
                   key={item.id}
                   initial={{ opacity: 0, scale: 0.9, x: index === 0 ? -50 : 50 }}
                   animate={isInView ? { opacity: 1, scale: 1, x: 0 } : { opacity: 0, scale: 0.9, x: index === 0 ? -50 : 50 }}
-                  transition={{ 
-                    delay: 0.6 + index * 0.2, 
+                  transition={{
+                    delay: 0.6 + index * 0.2,
                     duration: 0.8,
                     ease: [0.22, 1, 0.36, 1]
                   }}
@@ -362,25 +362,25 @@ const Portfolio = () => {
                   {/* Card container with larger aspect ratio for featured */}
                   <div className="relative overflow-hidden rounded-3xl aspect-[4/3]">
                     {/* Animated gradient background */}
-                    <motion.div 
+                    <motion.div
                       className={`absolute inset-0 bg-gradient-to-br ${item.color}`}
                       animate={{
                         scale: !isMobile && hoveredItem === item.id ? 1.15 : 1,
                       }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                     />
-                    
+
                     {/* Noise texture overlay */}
                     <div className="absolute inset-0 opacity-20 mix-blend-overlay"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
                       }}
                     />
-                    
+
                     {/* Content */}
                     <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
                       {/* Top section - Brand icon */}
-                      <motion.div 
+                      <motion.div
                         className="flex justify-between items-start"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -396,8 +396,8 @@ const Portfolio = () => {
                         >
                           {item.icon}
                         </motion.div>
-                        
-                        <motion.span 
+
+                        <motion.span
                           className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
                           animate={{
                             y: !isMobile && hoveredItem === item.id ? -5 : 0,
@@ -407,7 +407,7 @@ const Portfolio = () => {
                           {item.category}
                         </motion.span>
                       </motion.div>
-                      
+
                       {/* Bottom section - Project info */}
                       <motion.div
                         className="text-white"
@@ -423,7 +423,7 @@ const Portfolio = () => {
                           <p className="text-base md:text-lg text-white/80 mb-2 md:mb-4">{item.title}</p>
                           <p className="text-xs md:text-sm text-white/70 mb-3 md:mb-4">{item.description}</p>
                         </motion.div>
-                        
+
                         <motion.div
                           className="flex items-center gap-2 md:gap-3"
                           animate={{
@@ -435,9 +435,9 @@ const Portfolio = () => {
                             Featured Project
                           </span>
                           <motion.span
-                            animate={{ 
+                            animate={{
                               x: !isMobile && hoveredItem === item.id ? 5 : 0,
-                              scale: !isMobile && hoveredItem === item.id ? 1.2 : 1 
+                              scale: !isMobile && hoveredItem === item.id ? 1.2 : 1
                             }}
                             className="text-xl md:text-2xl"
                           >
@@ -456,7 +456,7 @@ const Portfolio = () => {
                         }}
                       />
                     )}
-                    
+
                     {/* Glow effect */}
                     {!isMobile && (
                       <motion.div
@@ -473,7 +473,7 @@ const Portfolio = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* View All Projects Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -486,7 +486,7 @@ const Portfolio = () => {
                   setPreviousFilter(filter);
                   setShowAll(true);
                 }}
-                whileHover={!isMobile ? { 
+                whileHover={!isMobile ? {
                   scale: 1.05,
                   boxShadow: "0 20px 60px rgba(120, 119, 198, 0.5)"
                 } : {}}
@@ -532,17 +532,15 @@ const Portfolio = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setFilter(btn.value)}
                   aria-current={filter === btn.value ? "true" : "false"}
-                  className={`relative px-8 py-3.5 rounded-full font-semibold transition-all ${
-                    filter === btn.value
-                      ? 'bg-gradient-dark text-white shadow-xl shadow-purple-500/30'
-                      : 'glass-effect text-slate-300 hover:text-white hover:border-purple-400/50'
-                  }`}
+                  className={`relative px-8 py-3.5 rounded-full font-semibold transition-all ${filter === btn.value
+                    ? 'bg-gradient-dark text-white shadow-xl shadow-purple-500/30'
+                    : 'glass-effect text-slate-300 hover:text-white hover:border-purple-400/50'
+                    }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     {btn.label}
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${
-                      filter === btn.value ? 'bg-white/20' : 'bg-white/10'
-                    }`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${filter === btn.value ? 'bg-white/20' : 'bg-white/10'
+                      }`}>
                       {btn.count}
                     </span>
                   </span>
@@ -571,43 +569,40 @@ const Portfolio = () => {
                     initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
                     animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                     exit={{ opacity: 0, scale: 0.8, rotateY: 20 }}
-                    transition={{ 
-                      delay: index * 0.05, 
+                    transition={{
+                      delay: index * 0.05,
                       duration: 0.6,
                       ease: [0.22, 1, 0.36, 1]
                     }}
-                    className={`group relative overflow-hidden rounded-3xl cursor-pointer ${
-                      item.size === 'wide' ? 'md:col-span-2' : ''
-                    } ${
-                      item.size === 'tall' ? 'md:row-span-2' : ''
-                    }`}
+                    className={`group relative overflow-hidden rounded-3xl cursor-pointer ${item.size === 'wide' ? 'md:col-span-2' : ''
+                      } ${item.size === 'tall' ? 'md:row-span-2' : ''
+                      }`}
                     onMouseEnter={() => !isMobile && setHoveredItem(item.id)}
                     onMouseLeave={() => !isMobile && setHoveredItem(null)}
                   >
                     {/* Card container */}
-                    <div className={`relative overflow-hidden rounded-3xl ${
-                      item.size === 'tall' ? 'aspect-[1/1.5]' : 'aspect-square'
-                    }`}>
+                    <div className={`relative overflow-hidden rounded-3xl ${item.size === 'tall' ? 'aspect-[1/1.5]' : 'aspect-square'
+                      }`}>
                       {/* Animated gradient background */}
-                      <motion.div 
+                      <motion.div
                         className={`absolute inset-0 bg-gradient-to-br ${item.color}`}
                         animate={{
                           scale: !isMobile && hoveredItem === item.id ? 1.15 : 1,
                         }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                       />
-                      
+
                       {/* Noise texture overlay */}
                       <div className="absolute inset-0 opacity-20 mix-blend-overlay"
                         style={{
                           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
                         }}
                       />
-                      
+
                       {/* Content */}
                       <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
                         {/* Top section - Brand icon */}
-                        <motion.div 
+                        <motion.div
                           className="flex justify-between items-start"
                           initial={{ opacity: 0, y: -20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -623,8 +618,8 @@ const Portfolio = () => {
                           >
                             {item.icon}
                           </motion.div>
-                          
-                          <motion.span 
+
+                          <motion.span
                             className="text-xs px-3 py-1.5 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
                             animate={{
                               y: !isMobile && hoveredItem === item.id ? -5 : 0,
@@ -634,7 +629,7 @@ const Portfolio = () => {
                             {item.category}
                           </motion.span>
                         </motion.div>
-                        
+
                         {/* Bottom section - Project info */}
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
@@ -652,7 +647,7 @@ const Portfolio = () => {
                             <h3 className="text-2xl md:text-3xl font-bold mb-2">{item.client}</h3>
                             <p className="text-base text-white/80 mb-4">{item.title}</p>
                           </motion.div>
-                          
+
                           {!isMobile && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
@@ -689,7 +684,7 @@ const Portfolio = () => {
                           }}
                         />
                       )}
-                      
+
                       {/* Glow effect */}
                       {!isMobile && (
                         <motion.div
@@ -745,7 +740,7 @@ const Portfolio = () => {
             </p>
             <motion.a
               href="#contact"
-              whileHover={!isMobile ? { 
+              whileHover={!isMobile ? {
                 scale: 1.05,
                 boxShadow: "0 20px 60px rgba(120, 119, 198, 0.5)"
               } : {}}

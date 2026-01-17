@@ -10,8 +10,8 @@ function App() {
     <div className="min-h-screen bg-slate-950">
       <Navbar />
       <Hero />
-      <About />
       <Portfolio />
+      <About />
       <Contact />
       <Footer />
     </div>

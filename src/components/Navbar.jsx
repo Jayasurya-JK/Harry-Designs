@@ -27,24 +27,23 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'glass-effect shadow-xl shadow-purple-500/5' : 'bg-transparent'
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass-effect shadow-xl shadow-purple-500/5' : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
+        <div className="flex justify-between items-center h-20 md:h-24">
           {/* Logo */}
           <motion.a
             href="#home"
             whileHover={{ scale: 1.05 }}
             aria-label="Harry Designs - Home"
-            className="text-2xl md:text-3xl font-display font-bold text-gradient"
+            className="text-2xl font-display font-medium text-white tracking-tight"
           >
             Harry
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-1">
+          <div className="hidden md:flex space-x-8">
             {navLinks.map((link, index) => (
               <motion.a
                 key={link.name}
@@ -52,17 +51,10 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative px-4 py-2 text-slate-300 hover:text-white font-medium transition-colors group"
+                whileHover={{ y: -2 }}
+                className="text-base font-bold uppercase tracking-widest text-white hover:text-purple-400 transition-colors"
               >
                 {link.name}
-                <motion.span
-                  className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-dark origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
               </motion.a>
             ))}
           </div>
