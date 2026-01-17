@@ -22,19 +22,20 @@ const Portfolio = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Brands worked with
+  // Brands worked with - Real client logos
   const brands = [
-    { name: 'Apple', icon: <FaApple />, color: 'from-slate-600 to-slate-800' },
-    { name: 'Nike', icon: <SiNike />, color: 'from-orange-600 to-red-600' },
-    { name: 'Coca Cola', icon: <SiCocacola />, color: 'from-red-600 to-red-800' },
-    { name: 'Starbucks', icon: <SiStarbucks />, color: 'from-green-600 to-emerald-700' },
-    { name: 'Amazon', icon: <FaAmazon />, color: 'from-orange-500 to-yellow-600' },
-    { name: 'Google', icon: <FaGoogle />, color: 'from-blue-600 to-indigo-600' },
-    { name: 'Adidas', icon: <SiAdidas />, color: 'from-slate-700 to-slate-900' },
-    { name: 'Target', icon: <FaShoppingCart />, color: 'from-red-600 to-rose-800' },
-    { name: 'McDonalds', icon: <SiMcdonalds />, color: 'from-yellow-500 to-red-600' },
-    { name: 'Spotify', icon: <SiSpotify />, color: 'from-green-500 to-green-700' },
-    { name: 'Netflix', icon: <SiNetflix />, color: 'from-red-600 to-red-800' },
+    { name: 'Anjarai Petti', logo: '/image/Logos/2@4x.webp' },
+    { name: 'Ministries', logo: '/image/Logos/Artboard 5.webp' },
+    { name: 'De Mu Trong', logo: '/image/Logos/Artboard 6.webp' },
+    { name: 'Thomas Bakers', logo: '/image/Logos/Colored.webp' },
+    { name: 'CSIR', logo: '/image/Logos/CSIR-Logo-With-Tagline-Seleceted-Bilingual.webp' },
+    { name: 'Divya Pure', logo: '/image/Logos/Logo.webp' },
+    { name: 'The Dravidian', logo: '/image/Logos/logo hm.webp' },
+    { name: 'Main Logo', logo: '/image/Logos/Main logo png@1000x.webp' },
+    { name: 'Mo Elixir', logo: '/image/Logos/Mo Elixir.webp' },
+    { name: 'Edwin BS', logo: '/image/Logos/edwin bs logo.webp' },
+    { name: 'Neeri', logo: '/image/Logos/neeri_logo.webp' },
+    { name: 'Quill', logo: '/image/Logos/quill main logo.webp' },
   ];
 
   // Calculate animation distance based on actual card dimensions
@@ -240,27 +241,24 @@ const Portfolio = () => {
                   <motion.div
                     key={`brand-1-${index}`}
                     whileHover={!isMobile ? { scale: 1.1, y: -10 } : {}}
-                    className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
+                    className="group relative flex-shrink-0 w-40 h-40 bg-eerie-light/50 rounded-3xl flex flex-col items-center justify-center overflow-hidden p-4 border border-white/10"
                     onMouseEnter={() => !isMobile && setHoveredItem(brand.name)}
                     onMouseLeave={() => !isMobile && setHoveredItem(null)}
                   >
                     <motion.div
-                      className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
+                      className="w-full h-32 relative flex items-center justify-center"
                       animate={{
-                        opacity: !isMobile && hoveredItem === brand.name ? 0.2 : 0,
+                        scale: !isMobile && hoveredItem === brand.name ? 1.1 : 1,
                       }}
-                    />
-                    <motion.div
-                      className="text-6xl text-white relative z-10"
-                      animate={{
-                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
-                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
-                      }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      {brand.icon}
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="max-w-full max-h-full object-contain"
+                      />
                     </motion.div>
-                    <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
+                    <p className="text-xs text-slate-400 mt-2 text-center relative z-10 group-hover:text-white transition-colors">
                       {brand.name}
                     </p>
                   </motion.div>
@@ -286,27 +284,24 @@ const Portfolio = () => {
                   <motion.div
                     key={`brand-2-${index}`}
                     whileHover={!isMobile ? { scale: 1.1, y: -10 } : {}}
-                    className="group relative flex-shrink-0 w-40 h-40 glass-effect rounded-3xl flex flex-col items-center justify-center overflow-hidden"
+                    className="group relative flex-shrink-0 w-40 h-40 bg-eerie-light/50 rounded-3xl flex flex-col items-center justify-center overflow-hidden p-4 border border-white/10"
                     onMouseEnter={() => !isMobile && setHoveredItem(brand.name)}
                     onMouseLeave={() => !isMobile && setHoveredItem(null)}
                   >
                     <motion.div
-                      className={`absolute inset-0 bg-gradient-to-br ${brand.color} opacity-0 transition-opacity duration-300`}
+                      className="w-full h-32 relative flex items-center justify-center"
                       animate={{
-                        opacity: !isMobile && hoveredItem === brand.name ? 0.2 : 0,
+                        scale: !isMobile && hoveredItem === brand.name ? 1.1 : 1,
                       }}
-                    />
-                    <motion.div
-                      className="text-6xl text-white relative z-10"
-                      animate={{
-                        scale: !isMobile && hoveredItem === brand.name ? 1.2 : 1,
-                        rotate: !isMobile && hoveredItem === brand.name ? [0, -10, 10, 0] : 0,
-                      }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      {brand.icon}
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="max-w-full max-h-full object-contain"
+                      />
                     </motion.div>
-                    <p className="text-sm text-slate-400 mt-4 relative z-10 group-hover:text-white transition-colors">
+                    <p className="text-xs text-slate-400 mt-2 text-center relative z-10 group-hover:text-white transition-colors">
                       {brand.name}
                     </p>
                   </motion.div>

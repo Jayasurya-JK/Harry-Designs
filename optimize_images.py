@@ -8,9 +8,12 @@ from PIL import Image
 import os
 
 # Configuration
-IMAGE_DIR = os.path.join("public", "image", "samples")
+IMAGE_DIR = os.path.join("public", "image", "Logos")
 WEBP_QUALITY = 85  # 0-100, higher is better quality
 DELETE_ORIGINALS = True  # Set to False for testing
+
+# Disable DecompressionBomb warning
+Image.MAX_IMAGE_PIXELS = None
 
 def convert_to_webp(input_file, quality=85):
     """Convert an image to WebP format"""
@@ -22,18 +25,24 @@ def convert_to_webp(input_file, quality=85):
         img = Image.open(input_path)
         
         # Convert RGBA to RGB if necessary
-        if img.mode == 'RGBA':
-            background = Image.new('RGB', img.size, (255, 255, 255))
-            background.paste(img, mask=img.split()[3])
-            img = background
-        elif img.mode not in ('RGB', 'RGBA'):
-            img = img.convert('RGB')
+        # For logos with transparency, we want to keep RGBA!
+        # Only convert to RGB if it's not RGBA/RGB
+        if img.mode not in ('RGB', 'RGBA'):
+            img = img.convert('RGBA')
+        
+        # Resize if too large (WebP limit is 16383px, but we don't need > 4000px for logos)
+        MAX_DIMENSION = 4000
+        if max(img.size) > MAX_DIMENSION:
+            ratio = MAX_DIMENSION / max(img.size)
+            new_size = (int(img.size[0] * ratio), int(img.size[1] * ratio))
+            img = img.resize(new_size, Image.Resampling.LANCZOS)
+            print(f"   ⚠️  Resized from {img.size} to {new_size}")
         
         # Create output path
         output_file = os.path.splitext(input_file)[0] + '.webp'
         output_path = os.path.join(IMAGE_DIR, output_file)
         
-        # Save as WebP
+        # Save as WebP - allow transparency
         img.save(output_path, 'WEBP', quality=quality, method=6)
         
         # Get file sizes
@@ -53,8 +62,8 @@ def convert_to_webp(input_file, quality=85):
         return None, 0, 0
 
 def update_component():
-    """Update ParallaxGallery.jsx to use .webp extensions"""
-    component_path = os.path.join("src", "components", "ParallaxGallery.jsx")
+    """Update Portfolio.jsx to use .webp extensions"""
+    component_path = os.path.join("src", "components", "Portfolio.jsx")
     
     if not os.path.exists(component_path):
         print(f"⚠️  Component file not found: {component_path}")
@@ -64,8 +73,8 @@ def update_component():
         with open(component_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Replace .png with .webp
-        updated_content = content.replace('.png"', '.webp"')
+        # Replace .png with .webp (handle both quote types)
+        updated_content = content.replace('.png"', '.webp"').replace(".png'", ".webp'")
         
         with open(component_path, 'w', encoding='utf-8') as f:
             f.write(updated_content)
