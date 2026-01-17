@@ -16,7 +16,7 @@ const Hero = () => {
 
           {/* LEFT COLUMN: Text Content - 50% Width */}
           <motion.div
-            className="text-left order-1 lg:order-1 flex flex-col justify-center h-full px-8 lg:pl-20 xl:pl-32 z-20"
+            className="text-left order-1 lg:order-1 flex flex-col justify-center h-full px-6 sm:px-8 lg:pl-20 xl:pl-32 z-20 py-12 lg:py-0"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -26,7 +26,7 @@ const Hero = () => {
             >
               {/* Tagline Label */}
               <motion.span
-                className="block text-crimson text-xs md:text-sm tracking-[0.2em] uppercase font-bold mb-4 md:mb-6"
+                className="block text-crimson text-[10px] sm:text-xs md:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold mb-3 sm:mb-4 md:mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -36,13 +36,13 @@ const Hero = () => {
 
               {/* Main Headline */}
               <motion.h1
-                className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.1] tracking-tight text-white"
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold mb-4 sm:mb-6 leading-[1.15] sm:leading-[1.1] tracking-tight text-white"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex flex-col">
-                  <span className="block whitespace-nowrap">
+                <div className="flex flex-col gap-1">
+                  <span className="block">
                     Crafting <span className="font-display italic font-normal text-crimson-light">Meaningful</span>
                   </span>
                   <span className="block">
@@ -53,7 +53,7 @@ const Hero = () => {
 
               {/* Description */}
               <motion.p
-                className="text-sm md:text-lg text-slate-300 font-light leading-relaxed max-w-xl mb-8"
+                className="text-sm sm:text-base md:text-lg text-slate-300 font-light leading-relaxed max-w-xl mb-6 sm:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
@@ -70,7 +70,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full md:w-auto px-8 py-4 bg-crimson text-white rounded-full font-bold text-lg hover:bg-crimson-dark transition-colors"
+                  className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-crimson text-white rounded-full font-bold text-base sm:text-lg hover:bg-crimson-dark transition-colors shadow-lg shadow-crimson/30"
                 >
                   Book a demo
                 </motion.button>
