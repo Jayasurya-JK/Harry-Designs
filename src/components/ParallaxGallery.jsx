@@ -205,7 +205,7 @@ const ParallaxGallery = () => {
                             {rowImages.map((src, i) => (
                                 <div key={`m-row1-${i}`} className="w-40 h-40 flex-shrink-0 rounded-xl overflow-hidden relative">
                                     <img src={src} alt="Project" className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-purple-500/10" />
+                                    <div className="absolute inset-0 bg-crimson/10" />
                                 </div>
                             ))}
                         </motion.div>
@@ -225,7 +225,7 @@ const ParallaxGallery = () => {
                             {rowImages.map((src, i) => (
                                 <div key={`m-row2-${i}`} className="w-40 h-40 flex-shrink-0 rounded-xl overflow-hidden relative">
                                     <img src={src} alt="Project" className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-indigo-500/10" />
+                                    <div className="absolute inset-0 bg-crimson-dark/10" />
                                 </div>
                             ))}
                         </motion.div>

@@ -42,10 +42,10 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative py-20 md:py-32 bg-slate-900 overflow-hidden" ref={ref}>
+    <section id="contact" className="relative py-20 md:py-32 bg-eerie-light overflow-hidden" ref={ref}>
       {/* Background decorative elements */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-0 w-96 h-96 bg-crimson/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-crimson-dark/10 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -60,7 +60,7 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="inline-block mb-4"
           >
-            <span className="text-purple-400 text-sm tracking-[0.3em] uppercase font-medium">Contact</span>
+            <span className="text-crimson text-sm tracking-[0.3em] uppercase font-medium">Contact</span>
           </motion.div>
           <h2 className="text-3xl md:text-6xl font-display font-bold mb-6">
             Let&apos;s Work <span className="text-gradient">Together</span>
@@ -78,7 +78,7 @@ const Contact = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-white">Get In Touch</h3>
-            
+
             <div className="space-y-6 mb-12">
               {contactInfo.map((info, index) => (
                 <motion.div
@@ -89,8 +89,8 @@ const Contact = () => {
                   whileHover={{ x: 10, transition: { duration: 0.2 } }}
                   className="flex items-center space-x-4 p-4 glass-effect rounded-xl group"
                 >
-                  <motion.div 
-                    className="text-3xl text-purple-400 group-hover:text-purple-300 transition-colors"
+                  <motion.div
+                    className="text-3xl text-crimson group-hover:text-crimson-light transition-colors"
                     whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
                     transition={{ duration: 0.5 }}
                   >
@@ -139,7 +139,7 @@ const Contact = () => {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="hidden lg:block mt-12 w-64 h-64 border border-purple-500/20 rounded-lg"
+              className="hidden lg:block mt-12 w-64 h-64 border border-crimson/20 rounded-lg"
             />
           </motion.div>
 
@@ -175,7 +175,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none text-white placeholder-slate-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-all outline-none text-white placeholder-slate-500"
                   placeholder="John Doe"
                 />
               </div>
@@ -192,7 +192,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none text-white placeholder-slate-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-all outline-none text-white placeholder-slate-500"
                   placeholder="john@example.com"
                 />
               </div>
@@ -209,14 +209,14 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="6"
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none resize-none text-white placeholder-slate-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-all outline-none resize-none text-white placeholder-slate-500"
                   placeholder="Tell me about your project..."
                 />
               </div>
 
               <motion.button
                 type="submit"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   boxShadow: "0 20px 60px rgba(120, 119, 198, 0.4)"
                 }}

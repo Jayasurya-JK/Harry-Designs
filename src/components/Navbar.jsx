@@ -52,7 +52,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
                 whileHover={{ y: -2 }}
-                className="text-base font-bold uppercase tracking-widest text-white hover:text-purple-400 transition-colors"
+                className="text-base font-bold uppercase tracking-widest text-white hover:text-crimson transition-colors"
               >
                 {link.name}
               </motion.a>

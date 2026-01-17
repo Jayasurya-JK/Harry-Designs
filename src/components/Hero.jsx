@@ -6,7 +6,7 @@ const Hero = () => {
   const { scrollY } = useScroll();
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-slate-950 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center bg-eerie overflow-hidden">
       {/* Background with simple gradient mesh to not compete with gallery */}
       <div className="absolute inset-0">
       </div>
@@ -26,7 +26,7 @@ const Hero = () => {
             >
               {/* Tagline Label */}
               <motion.span
-                className="block text-purple-400 text-xs md:text-sm tracking-[0.2em] uppercase font-bold mb-4 md:mb-6"
+                className="block text-crimson text-xs md:text-sm tracking-[0.2em] uppercase font-bold mb-4 md:mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -43,7 +43,7 @@ const Hero = () => {
               >
                 <div className="flex flex-col">
                   <span className="block whitespace-nowrap">
-                    Crafting <span className="font-display italic font-normal text-purple-300">Meaningful</span>
+                    Crafting <span className="font-display italic font-normal text-crimson-light">Meaningful</span>
                   </span>
                   <span className="block">
                     Brands Through Design
@@ -70,7 +70,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full md:w-auto px-8 py-4 bg-[#ccff00] text-black rounded-full font-bold text-lg hover:bg-[#b3e600] transition-colors"
+                  className="w-full md:w-auto px-8 py-4 bg-crimson text-white rounded-full font-bold text-lg hover:bg-crimson-dark transition-colors"
                 >
                   Book a demo
                 </motion.button>
@@ -92,7 +92,7 @@ const Hero = () => {
             >
               <div className="flex flex-col items-center gap-2">
                 <span className="text-slate-500 text-xs uppercase tracking-widest">Scroll</span>
-                <HiArrowDown className="text-purple-400 text-2xl" />
+                <HiArrowDown className="text-crimson text-2xl" />
               </div>
             </motion.div>
           </motion.div>
@@ -100,7 +100,7 @@ const Hero = () => {
           {/* RIGHT COLUMN: Parallax Gallery - 50% Width */}
           <div className="order-2 lg:order-2 h-auto lg:h-screen w-full flex items-center justify-center relative overflow-hidden">
             {/* Gradient overlay on the left to blend with text */}
-            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none" />
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-eerie to-transparent z-20 pointer-events-none" />
             <ParallaxGallery />
           </div>
 

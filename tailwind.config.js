@@ -7,9 +7,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1a1a1a',
-        secondary: '#f5f5f5',
-        accent: '#FFD700',
+        crimson: {
+          DEFAULT: '#D72638',
+          dark: '#B51E2E',
+          light: '#E84A59',
+        },
+        eerie: {
+          DEFAULT: '#1B1B1B',
+          light: '#232323',
+          lighter: '#2E2E2E',
+        },
+        cloud: {
+          white: '#F5F5F5',
+          dancer: '#F0EEE9',
+        }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

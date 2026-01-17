@@ -1,21 +1,37 @@
 @import "tailwindcss";
 
+@theme {
+  /* Crimson Tide Color System */
+  --color-crimson: #D72638;
+  --color-crimson-dark: #B51E2E;
+  --color-crimson-light: #E84A59;
+
+  /* Eerie Black System */
+  --color-eerie: #1B1B1B;
+  --color-eerie-light: #232323;
+  --color-eerie-lighter: #2E2E2E;
+
+  /* Cloud Colors */
+  --color-cloud-white: #F5F5F5;
+  --color-cloud-dancer: #F0EEE9;
+}
+
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D72638 0%, #B51E2E 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .bg-gradient-dark {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D72638 0%, #B51E2E 100%);
   }
 
   .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(240, 238, 233, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(245, 245, 245, 0.08);
   }
 }
 
@@ -25,6 +41,7 @@
   }
 
   body {
-    @apply bg-slate-950 text-white;
+    background-color: #1B1B1B;
+    color: white;
   }
 }

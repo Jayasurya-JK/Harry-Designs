@@ -4,7 +4,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-slate-950 text-white py-12 border-t border-slate-800">
+    <footer className="relative bg-eerie text-white py-12 border-t border-eerie-lighter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <motion.a
@@ -14,13 +14,13 @@ const Footer = () => {
           >
             Harry
           </motion.a>
-          
+
           <p className="text-slate-400 mb-6 max-w-md mx-auto">
             Creating memorable designs that make brands stand out and leave lasting impressions
           </p>
-          
+
           {/* Quick Links */}
-          <motion.div 
+          <motion.div
             className="flex justify-center space-x-8 mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -30,18 +30,18 @@ const Footer = () => {
               <motion.a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                whileHover={{ y: -2, color: '#a78bfa' }}
+                whileHover={{ y: -2, color: '#D72638' }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-slate-400 hover:text-purple-400 transition-colors text-sm"
+                className="text-slate-400 hover:text-crimson transition-colors text-sm"
               >
                 {link}
               </motion.a>
             ))}
           </motion.div>
-          
+
           <div className="border-t border-slate-800 pt-8 mt-8">
             <p className="text-slate-500 text-sm">
               © {currentYear} Harry Designs. All rights reserved.
@@ -49,9 +49,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Decorative gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-crimson/50 to-transparent" />
     </footer>
   );
 };

@@ -153,7 +153,7 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="relative py-20 md:py-32 bg-slate-950 overflow-hidden" ref={ref}>
+    <section id="portfolio" className="relative py-20 md:py-32 bg-eerie overflow-hidden" ref={ref}>
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
@@ -168,7 +168,7 @@ const Portfolio = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-crimson/20 rounded-full blur-3xl"
       />
       <motion.div
         animate={{
@@ -181,7 +181,7 @@ const Portfolio = () => {
           ease: "easeInOut",
           delay: 2
         }}
-        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"
+        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-crimson-dark/20 rounded-full blur-3xl"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -197,7 +197,7 @@ const Portfolio = () => {
             transition={{ duration: 0.6 }}
             className="inline-block mb-4"
           >
-            <span className="text-purple-400 text-sm tracking-[0.3em] uppercase font-medium">Portfolio</span>
+            <span className="text-crimson text-sm tracking-[0.3em] uppercase font-medium">Portfolio</span>
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
             Brands I've <span className="text-gradient">Worked With</span>
@@ -216,8 +216,8 @@ const Portfolio = () => {
         >
           <div className="relative">
             {/* Gradient overlays for smooth edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-eerie to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-eerie to-transparent z-10 pointer-events-none" />
 
             {/* Scrolling brands container */}
             <div className="flex">
@@ -533,8 +533,8 @@ const Portfolio = () => {
                   onClick={() => setFilter(btn.value)}
                   aria-current={filter === btn.value ? "true" : "false"}
                   className={`relative px-8 py-3.5 rounded-full font-semibold transition-all ${filter === btn.value
-                    ? 'bg-gradient-dark text-white shadow-xl shadow-purple-500/30'
-                    : 'glass-effect text-slate-300 hover:text-white hover:border-purple-400/50'
+                    ? 'bg-gradient-dark text-white shadow-xl shadow-crimson/30'
+                    : 'glass-effect text-slate-300 hover:text-white hover:border-crimson/50'
                     }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">

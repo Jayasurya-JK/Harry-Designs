@@ -94,7 +94,7 @@ const About = () => {
       icon: <FaBolt className="text-3xl md:text-4xl" />,
       title: "Innovative Ideas",
       description: "Fresh perspectives and creative solutions",
-      color: "from-purple-500 to-indigo-500"
+      color: "from-crimson to-crimson-dark"
     }
   ];
 
@@ -136,7 +136,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="relative py-20 md:py-32 bg-slate-900 overflow-hidden" ref={ref}>
+    <section id="about" className="relative py-20 md:py-32 bg-eerie-light overflow-hidden" ref={ref}>
       {/* Background decorative elements with enhanced animations */}
       <motion.div
         style={{ y }}
@@ -149,7 +149,7 @@ const About = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-20 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+        className="absolute top-20 right-0 w-96 h-96 bg-crimson/10 rounded-full blur-3xl"
       />
       <motion.div
         style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]) }}
@@ -162,7 +162,7 @@ const About = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute bottom-20 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+        className="absolute bottom-20 left-0 w-96 h-96 bg-crimson-dark/10 rounded-full blur-3xl"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -179,7 +179,7 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="inline-block mb-4"
           >
-            <span className="text-purple-400 text-sm tracking-[0.3em] uppercase font-medium">About Me</span>
+            <span className="text-crimson text-sm tracking-[0.3em] uppercase font-medium">About Me</span>
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
             Meet Your <br />
@@ -243,7 +243,7 @@ const About = () => {
                       className="relative"
                     >
                       {/* Photo container */}
-                      <div className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-2xl ring-4 ring-purple-500/20">
+                      <div className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden bg-gradient-to-br from-crimson to-crimson-dark flex items-center justify-center shadow-2xl ring-4 ring-crimson/20">
                         {imageError ? (
                           <div className="text-6xl md:text-8xl">👨‍🎨</div>
                         ) : (
@@ -266,7 +266,7 @@ const About = () => {
                           repeat: Infinity,
                           ease: "linear"
                         }}
-                        className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-16 h-16 md:w-24 md:h-24 border-4 border-purple-500/40 rounded-full"
+                        className="absolute -top-4 -right-4 md:-top-6 md:-right-6 w-16 h-16 md:w-24 md:h-24 border-4 border-crimson/40 rounded-full"
                       />
                       <motion.div
                         animate={{
