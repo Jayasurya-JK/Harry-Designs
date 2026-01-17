@@ -3,17 +3,17 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimatio
 
 // Local portfolio images
 const images = [
-    "/image/samples/1.png",
-    "/image/samples/2.png",
-    "/image/samples/3.png",
-    "/image/samples/4.png",
-    "/image/samples/5.png",
-    "/image/samples/6.png",
-    "/image/samples/7.png",
-    "/image/samples/8.png",
-    "/image/samples/9.png",
-    "/image/samples/10.png",
-    "/image/samples/11.png",
+    "/image/samples/1.webp",
+    "/image/samples/2.webp",
+    "/image/samples/3.webp",
+    "/image/samples/4.webp",
+    "/image/samples/5.webp",
+    "/image/samples/6.webp",
+    "/image/samples/7.webp",
+    "/image/samples/8.webp",
+    "/image/samples/9.webp",
+    "/image/samples/10.webp",
+    "/image/samples/11.webp",
 ];
 
 const ParallaxGallery = () => {
