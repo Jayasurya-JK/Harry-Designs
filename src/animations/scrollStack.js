@@ -20,24 +20,24 @@ import { EASINGS } from './easings';
  */
 export const STACK_DIMENSIONS = {
   mobile: {
-    cardWidth: '92%',
-    cardMaxWidth: '340px',
-    cardHeight: '420px', // Reduced height to prevent title overlap
-    stackOffset: 8,
-    scaleDecrement: 0,
+    cardWidth: '96%',
+    cardMaxWidth: '600px',
+    cardHeight: '480px', // Adjusted height to accommodate the header without cutoff
+    stackOffset: 2.5,
+    scaleDecrement: 0.05,
   },
   tablet: {
     cardWidth: '85%',
     cardMaxWidth: '500px',
     cardHeight: '550px',
-    stackOffset: 20,
+    stackOffset: 3, // Approx 3vh
     scaleDecrement: 0,
   },
   desktop: {
     cardWidth: '100%',
     cardMaxWidth: '900px',
     cardHeight: '600px',
-    stackOffset: 25,
+    stackOffset: 4, // Approx 4vh
     scaleDecrement: 0,
   },
 };
@@ -60,10 +60,16 @@ export function getCardScrollRange(cardIndex, totalCards) {
     return { start: 0, end: 1 };
   }
   
-  // Each subsequent card enters in sequence
-  const segmentSize = 1 / totalCards;
-  const start = cardIndex * segmentSize;
-  const end = start + (segmentSize * 0.5); // Takes half segment to fully stack
+  // Reserve the first 15% of scroll just for the first card to be admired
+  const startBuffer = 0.15;
+  const availableSpace = 1 - startBuffer;
+  const enteringCards = totalCards - 1;
+  const segmentSize = availableSpace / enteringCards;
+  
+  // Map index 1..N to the available space
+  const cardEntryIndex = cardIndex - 1;
+  const start = startBuffer + (cardEntryIndex * segmentSize);
+  const end = start + segmentSize;
   
   return { start, end };
 }
@@ -92,12 +98,12 @@ export function createScrollTransforms(cardIndex, totalCards, stackOffset, scale
     
     return {
       y: {
-        input: [0, 0.8, 1],
-        output: [0, -finalPushUp, -finalPushUp]
+        input: [0, 1],
+        output: [0, -finalPushUp]
       },
       scale: {
-        input: [0, 0.8, 1],
-        output: [1, finalScale, finalScale]
+        input: [0, 1],
+        output: [1, finalScale]
       },
       opacity: {
         input: [0, 1],
@@ -114,22 +120,27 @@ export function createScrollTransforms(cardIndex, totalCards, stackOffset, scale
   const pushUp = stackOffset * cardsAbove;
   const finalScale = 1 - (scaleDecrement * cardsAbove);
   
+  // Create a continuous motion from off-screen deep below
+  // At scroll=0, y=150vh (Deep off screen)
+  // At scroll=start, y=100vh (Just entering screen bottom)
+  // At scroll=end, y=0 (Stacked position)
+  
   return {
     y: {
-      input: [0, start - 0.01, start, end, 1],
-      output: [120, 120, 0, -pushUp, -pushUp] // Start below (120vh), slide to center, push up
+      input: [0, start, end, 1],
+      output: [150, 100, 0, -pushUp] // Note: Interpolates from 150->100->0
     },
     scale: {
-      input: [0, start, end, 1],
-      output: [0.95, 1, finalScale, finalScale]
+      input: [0, 1],
+      output: [1, finalScale] // Constant scale until stacked? No, just keep it linear simple
     },
     opacity: {
-      input: [0, start - 0.05, start, 1],
-      output: [0, 0, 1, 1]
+      input: [0, start, start + 0.05, 1],
+      output: [0, 0, 1, 1] // Fade in just as it enters "active" zone
     },
     zIndex: {
       input: [0, 1],
-      output: [cardIndex + 1, cardIndex + 1] // Higher cards on top
+      output: [cardIndex + 1, cardIndex + 1]
     }
   };
 }

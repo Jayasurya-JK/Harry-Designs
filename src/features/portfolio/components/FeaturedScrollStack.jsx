@@ -113,12 +113,7 @@ const ScrollDrivenCard = ({ item, index, totalCards, dimensions, scrollProgress,
   const y = useTransform(
     scrollProgress,
     transforms.y.input,
-    transforms.y.output.map((val) => {
-      // Values > 50 are viewport percentages (off-screen)
-      if (val >= 50) return `${val}vh`;
-      // Small values are pixel offsets (stacking)
-      return `${val}px`;
-    })
+    transforms.y.output.map((val) => `${val}vh`)
   );
   
   const scale = useTransform(
@@ -138,7 +133,7 @@ const ScrollDrivenCard = ({ item, index, totalCards, dimensions, scrollProgress,
       style={{
         position: 'absolute',
         inset: 0,
-        top: isMobile ? '30%' : 0, // Push down further on mobile to clear title
+        top: isMobile ? '23%' : '18%', // Adjusted to provide space for the header on both mobile and desktop
         margin: 'auto',
         width: dimensions.cardWidth,
         maxWidth: dimensions.cardMaxWidth,
@@ -150,50 +145,33 @@ const ScrollDrivenCard = ({ item, index, totalCards, dimensions, scrollProgress,
       }}
       className="will-change-transform"
     >
-      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
-        {/* Gradient Background */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
+      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl group flex flex-col bg-slate-900">
         
-        {/* Noise Texture Overlay */}
-        <div
-          className="absolute inset-0 opacity-20 mix-blend-overlay"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-          }}
-        />
-        
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-10">
-          {/* Top Section - Icon & Category */}
-          <div className="flex justify-between items-start">
-            <div className="text-5xl md:text-7xl text-white/90 backdrop-blur-sm bg-white/10 p-4 md:p-5 rounded-2xl">
-              <Icon />
+        {/* Full Image Background */}
+        <div className="absolute inset-0 z-0">
+          {item.image ? (
+            <img 
+              src={item.image} 
+              alt={item.client}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className={`w-full h-full bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+              <Icon className="text-8xl text-white/50" />
             </div>
-            
-            <span className="text-xs md:text-sm px-4 py-2 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize">
-              {item.category}
-            </span>
-          </div>
+          )}
           
-          {/* Bottom Section - Project Info */}
-          <div className="text-white">
-            <p className="text-xs md:text-sm text-white/70 mb-2 font-medium uppercase tracking-wider">
-              Featured Client
-            </p>
-            <h3 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4 leading-tight">
-              {item.client}
-            </h3>
-            <p className="text-lg md:text-2xl text-white/90 mb-3 md:mb-4 font-medium">
-              {item.title}
-            </p>
-            <p className="text-sm md:text-base text-white/70 leading-relaxed max-w-lg">
-              {item.description}
-            </p>
-          </div>
+          {/* Enhanced Text Readability Gradient */}
+          <div className="absolute inset-x-0 bottom-0 h-[80%] bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none" />
         </div>
         
-        {/* Subtle border glow */}
-        <div className="absolute inset-0 border border-white/20 rounded-3xl pointer-events-none" />
+        {/* Content Overlay */}
+        <div className="relative z-10 h-full flex flex-col justify-end items-end p-6 md:p-8">
+            {/* Icon removed */}
+        </div>
+        
+        {/* Border Glow */}
+        <div className="absolute inset-0 border border-white/10 rounded-3xl pointer-events-none" />
       </div>
     </motion.div>
   );
@@ -240,22 +218,22 @@ const FeaturedScrollStack = ({ items, onViewAll }) => {
         ref={containerRef}
         className="relative w-full"
         style={{
-          height: SCROLL_STACK_CONFIG.containerHeight, // ~300vh
+          height: isMobile ? '600vh' : SCROLL_STACK_CONFIG.containerHeight,
         }}
       >
         {/* Sticky viewport - LOCKS the view in place */}
         <div
-          className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+          className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden"
         >
           {/* Title Header - Sticky with the cards */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="absolute top-24 md:top-20 left-0 w-full z-20 text-center px-4 pointer-events-none"
+            className="absolute top-16 md:top-20 left-0 w-full z-20 text-center px-4 pointer-events-none"
           >
             <h3 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 text-white drop-shadow-lg pt-4 md:pt-0">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Projects</span>
+              Featured <span className="text-gradient">Projects</span>
             </h3>
             <p className="text-slate-300 text-xs md:text-base font-medium tracking-wide drop-shadow-md">
               Scroll to explore my best design creations

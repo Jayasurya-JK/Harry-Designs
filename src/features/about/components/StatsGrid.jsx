@@ -37,6 +37,7 @@ const StatsGrid = ({ isInView }) => {
               ? {
                   scale: 1.1,
                   y: -8,
+                  zIndex: 20,
                   transition: { duration: 0.2 },
                 }
               : {}

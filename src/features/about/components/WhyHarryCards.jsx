@@ -268,13 +268,13 @@ const WhyHarryCards = ({ isInView }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={TRANSITIONS.medium}
-        className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-white text-center"
+        className="text-3xl md:text-5xl font-bold mb-8 text-white text-center"
       >
         Why <span className="text-gradient">Harry?</span>
       </motion.h3>
 
       {/* Split Layout Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
         {/* LEFT SIDE - Designer Photo (40% width on desktop) */}
         <AboutProfile isInView={isInView} />
 

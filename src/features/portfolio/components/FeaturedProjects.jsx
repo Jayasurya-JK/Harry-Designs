@@ -31,117 +31,56 @@ const FeaturedCard = ({ item, index, isInView }) => {
             }
           : {}
       }
-      className="group relative overflow-hidden rounded-3xl cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl cursor-pointer"
       onMouseEnter={() => !isMobile && setHoveredItem(item.id)}
       onMouseLeave={() => !isMobile && setHoveredItem(null)}
     >
       {/* Card container with larger aspect ratio for featured */}
-      <div className="relative overflow-hidden rounded-3xl aspect-[4/3]">
-        {/* Animated gradient background */}
-        <motion.div
-          className={`absolute inset-0 bg-gradient-to-br ${item.color}`}
-          animate={{
-            scale: !isMobile && hoveredItem === item.id ? 1.15 : 1,
-          }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        />
+      <div className="relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[4/5] max-w-xs md:max-w-sm mx-auto shadow-lg">
+        
+        {/* Full Image Background */}
+        <div className="absolute inset-0 z-0">
+          {item.image ? (
+            <img 
+              src={item.image} 
+              alt={item.client}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+             <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${item.color}`}
+                  animate={{
+                    scale: !isMobile && hoveredItem === item.id ? 1.15 : 1,
+                  }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                />
+                <Icon className="relative z-10 text-8xl text-white/50" />
+             </div>
+          )}
+          
+          {/* Enhanced Text Readability Gradient */}
+          <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+        </div>
 
         {/* Noise texture overlay */}
         <div
-          className="absolute inset-0 opacity-20 mix-blend-overlay"
+          className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
           }}
         />
 
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
-          {/* Top section - Brand icon */}
-          <motion.div
-            className="flex justify-between items-start"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 + index * 0.2 }}
-          >
-            <motion.div
-              animate={{
-                scale: !isMobile && hoveredItem === item.id ? 1.2 : 1,
-                rotate: !isMobile && hoveredItem === item.id ? 5 : 0,
-              }}
-              transition={TRANSITIONS.fast}
-              className="text-4xl md:text-6xl text-white/90 backdrop-blur-sm bg-white/10 p-3 md:p-4 rounded-xl md:rounded-2xl"
-            >
-              <Icon />
-            </motion.div>
-
-            <motion.span
-              className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 glass-effect rounded-full text-white/90 backdrop-blur-md font-medium capitalize"
-              animate={{
-                y: !isMobile && hoveredItem === item.id ? -5 : 0,
-              }}
-              transition={TRANSITIONS.fast}
-            >
-              {item.category}
-            </motion.span>
-          </motion.div>
-
-          {/* Bottom section - Project info */}
-          <motion.div className="text-white">
-            <motion.div
-              animate={{
-                y: !isMobile && hoveredItem === item.id ? -10 : 0,
-              }}
-              transition={TRANSITIONS.fast}
-            >
-              <p className="text-xs md:text-sm text-white/70 mb-1 md:mb-2 font-medium">Client</p>
-              <h3 className="text-2xl md:text-4xl font-bold mb-2 md:mb-3">{item.client}</h3>
-              <p className="text-base md:text-lg text-white/80 mb-2 md:mb-4">{item.title}</p>
-              <p className="text-xs md:text-sm text-white/70 mb-3 md:mb-4">{item.description}</p>
-            </motion.div>
-
-            <motion.div
-              className="flex items-center gap-2 md:gap-3"
-              animate={{
-                x: !isMobile && hoveredItem === item.id ? 10 : 0,
-              }}
-              transition={TRANSITIONS.fast}
-            >
-              <span className="px-4 md:px-5 py-2 md:py-2.5 bg-white/20 backdrop-blur-md rounded-full text-xs md:text-sm font-medium">
-                Featured Project
-              </span>
-              <motion.span
-                animate={{
-                  x: !isMobile && hoveredItem === item.id ? 5 : 0,
-                  scale: !isMobile && hoveredItem === item.id ? 1.2 : 1,
-                }}
-                className="text-xl md:text-2xl"
-              >
-                →
-              </motion.span>
-            </motion.div>
-          </motion.div>
-        </div>
+        {/* Content - Empty as requested */}
+        <div className="absolute inset-0 pointer-events-none"></div>
 
         {/* Animated border */}
         {!isMobile && (
           <motion.div
-            className="absolute inset-0 rounded-3xl border-2 border-white/0 transition-all duration-300"
+            className="absolute inset-0 rounded-2xl border-2 border-white/0 transition-all duration-300 pointers-events-none"
             animate={{
               borderColor:
                 hoveredItem === item.id ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0)',
-            }}
-          />
-        )}
-
-        {/* Glow effect */}
-        {!isMobile && (
-          <motion.div
-            className="absolute -inset-1 rounded-3xl opacity-0 blur-2xl transition-opacity duration-500"
-            animate={{
-              opacity: hoveredItem === item.id ? 0.7 : 0,
-            }}
-            style={{
-              background: `linear-gradient(to bottom right, ${item.color})`,
             }}
           />
         )}
@@ -160,9 +99,19 @@ const FeaturedProjects = ({ items, isInView, onViewAll }) => {
         animate={isInView ? 'visible' : 'hidden'}
         variants={fadeInUp}
         transition={{ delay: 0.5, ...TRANSITIONS.medium }}
-        className="mb-20"
+        className="mb-20 container mx-auto px-4"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+              Featured <span className="text-gradient">Projects</span>
+            </h3>
+            <p className="text-slate-300 text-base md:text-lg font-medium mx-auto max-w-2xl">
+              Scroll to explore my best design creations
+            </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {items.map((item, index) => (
             <FeaturedCard key={item.id} item={item} index={index} isInView={isInView} />
           ))}
