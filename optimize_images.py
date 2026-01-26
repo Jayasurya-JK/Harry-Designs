@@ -8,9 +8,9 @@ from PIL import Image
 import os
 
 # Configuration
-IMAGE_DIR = os.path.join("public", "image", "Logos")
+IMAGE_DIR = os.path.join("public", "image", "Image Gallery")
 WEBP_QUALITY = 85  # 0-100, higher is better quality
-DELETE_ORIGINALS = False  # Set to False for testing
+DELETE_ORIGINALS = True  # Delete PNG files after conversion
 
 # Disable DecompressionBomb warning
 Image.MAX_IMAGE_PIXELS = None
@@ -30,13 +30,13 @@ def convert_to_webp(input_file, quality=85):
         if img.mode not in ('RGB', 'RGBA'):
             img = img.convert('RGBA')
         
-        # Resize if too large (WebP limit is 16383px, but we don't need > 500px for logos)
-        MAX_DIMENSION = 500
+        # Resize if too large (WebP limit is 16383px, keep gallery images at reasonable size)
+        MAX_DIMENSION = 1920  # Full HD for gallery images
         if max(img.size) > MAX_DIMENSION:
             ratio = MAX_DIMENSION / max(img.size)
             new_size = (int(img.size[0] * ratio), int(img.size[1] * ratio))
             img = img.resize(new_size, Image.Resampling.LANCZOS)
-            print(f"   ⚠️  Resized from {img.size} to {new_size}")
+            print(f"   ⚠️  Resized from original to {new_size}")
         
         # Create output path
         if input_file.lower().endswith('.webp'):
@@ -66,8 +66,8 @@ def convert_to_webp(input_file, quality=85):
         return None, 0, 0
 
 def update_component():
-    """Update Portfolio.jsx to use .webp extensions"""
-    component_path = os.path.join("src", "components", "Portfolio.jsx")
+    """Update galleryImages.js to use .webp extensions"""
+    component_path = os.path.join("src", "features", "parallax-gallery", "data", "galleryImages.js")
     
     if not os.path.exists(component_path):
         print(f"⚠️  Component file not found: {component_path}")
