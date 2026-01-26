@@ -95,9 +95,9 @@ const ParallaxGallery = () => {
           images={rowImages}
           autoXPercent={autoX1Percent}
           smoothX={smoothXRow1}
-          rotation="rotate-1"
+          rotation=""
           overlay="bg-crimson/10"
-          marginLeft="-ml-[20%]"
+          marginLeft="-ml-[10%]"
         />
 
         {/* Row 2 - Auto RIGHT, Scroll RIGHT */}
@@ -105,9 +105,9 @@ const ParallaxGallery = () => {
           images={rowImages}
           autoXPercent={autoX2Percent}
           smoothX={smoothXRow2}
-          rotation="-rotate-1"
+          rotation=""
           overlay="bg-crimson-dark/10"
-          marginLeft="-ml-[40%]"
+          marginLeft="-ml-[10%]"
         />
       </div>
     </div>

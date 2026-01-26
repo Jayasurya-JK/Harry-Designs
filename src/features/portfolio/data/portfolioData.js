@@ -46,7 +46,7 @@ export const PORTFOLIO_ITEMS = [
     icon: FaLeaf,
     color: 'from-emerald-600 via-green-500 to-teal-500',
     description: 'Eco-friendly tea box design',
-    size: 'wide',
+    size: 'tall',
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ export const PORTFOLIO_ITEMS = [
     icon: FaCoffee,
     color: 'from-orange-600 via-red-500 to-rose-500',
     description: 'Complete branding package',
-    size: 'normal',
+    size: 'tall',
   },
   {
     id: 4,
@@ -66,7 +66,7 @@ export const PORTFOLIO_ITEMS = [
     icon: FaGem,
     color: 'from-rose-600 via-pink-500 to-fuchsia-500',
     description: 'Premium cosmetic packaging',
-    size: 'normal',
+    size: 'tall',
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ export const PORTFOLIO_ITEMS = [
     icon: SiNike,
     color: 'from-amber-600 via-orange-500 to-red-500',
     description: 'Dynamic sports brand identity',
-    size: 'wide',
+    size: 'tall',
   },
   {
     id: 6,
@@ -96,7 +96,7 @@ export const PORTFOLIO_ITEMS = [
     icon: FaTshirt,
     color: 'from-purple-600 via-indigo-500 to-blue-500',
     description: 'Elegant fashion brand',
-    size: 'normal',
+    size: 'tall',
   },
   {
     id: 8,
@@ -106,7 +106,7 @@ export const PORTFOLIO_ITEMS = [
     icon: FaWineBottle,
     color: 'from-red-700 via-rose-600 to-pink-500',
     description: 'Sophisticated wine packaging',
-    size: 'normal',
+    size: 'tall',
   },
   {
     id: 9,
@@ -116,7 +116,7 @@ export const PORTFOLIO_ITEMS = [
     icon: SiStarbucks,
     color: 'from-yellow-700 via-amber-600 to-orange-600',
     description: 'Contemporary cafe identity',
-    size: 'wide',
+    size: 'tall',
   },
 ];
 
@@ -126,4 +126,5 @@ export const FILTER_BUTTONS = [
   { label: 'Packaging', value: 'packaging' },
 ];
 
-export const FEATURED_COUNT = 2;
+// Number of featured items for scroll stack (3-4 works best)
+export const FEATURED_COUNT = 6;

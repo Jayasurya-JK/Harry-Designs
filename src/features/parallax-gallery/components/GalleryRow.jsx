@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 /**
  * Single row of images with parallax effect (Mobile)
  */
-const GalleryRow = ({ images, autoXPercent, smoothX, rotation = 'rotate-1', overlay = 'bg-crimson/10', marginLeft = '-ml-[20%]' }) => {
+const GalleryRow = ({ images, autoXPercent, smoothX, rotation = '', overlay = 'bg-crimson/10', marginLeft = '-ml-[10%]' }) => {
   return (
     <div className={`relative w-full overflow-hidden ${rotation}`}>
       <motion.div className={`flex gap-4 w-max ${marginLeft}`} style={{ x: autoXPercent }}>
