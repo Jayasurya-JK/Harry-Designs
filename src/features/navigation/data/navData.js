@@ -12,7 +12,7 @@ export const NAV_LINKS = [
 export const FOOTER_LINKS = ['Home', 'About', 'Portfolio', 'Contact'];
 
 export const SITE_INFO = {
-  name: 'Harry',
+  name: 'Harry Designs',
   fullName: 'Harry Designs',
   tagline: 'Creating memorable designs that make brands stand out and leave lasting impressions',
   currentYear: new Date().getFullYear(),

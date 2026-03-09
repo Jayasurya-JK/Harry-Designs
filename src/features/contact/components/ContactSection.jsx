@@ -11,8 +11,7 @@ const ContactSection = () => {
 
   return (
     <section
-      id="contact"
-      className="relative py-20 md:py-32 bg-eerie-light overflow-hidden"
+      className="relative pt-10 md:pt-16 pb-20 md:pb-32 bg-eerie-light overflow-hidden"
       ref={ref}
     >
       {/* Background decorative elements */}
@@ -47,12 +46,23 @@ const ContactSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
+          {/* Contact Form */}
           <motion.div
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            variants={fadeInLeft}
+            variants={fadeInRight}
             transition={{ delay: DELAYS.small, ...TRANSITIONS.medium }}
+          >
+            <ContactForm />
+          </motion.div>
+
+          {/* Contact Info */}
+          <motion.div
+            id="contact"
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            variants={fadeInLeft}
+            transition={{ delay: DELAYS.large, ...TRANSITIONS.medium }}
           >
             <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-white">Get In Touch</h3>
 
@@ -61,29 +71,7 @@ const ContactSection = () => {
             {/* Social Links */}
             <SocialLinks isInView={isInView} />
 
-            {/* Decorative animated element */}
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 90, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="hidden lg:block mt-12 w-64 h-64 border border-crimson/20 rounded-lg"
-            />
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            variants={fadeInRight}
-            transition={{ delay: DELAYS.large, ...TRANSITIONS.medium }}
-          >
-            <ContactForm />
+        {/* Empty placeholder removed */}
           </motion.div>
         </div>
       </div>

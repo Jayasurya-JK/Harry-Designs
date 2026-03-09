@@ -7,6 +7,7 @@ export function useContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
   const [showSuccess, setShowSuccess] = useState(false);
@@ -15,7 +16,7 @@ export function useContactForm() {
     e.preventDefault();
     // Handle form submission
     setShowSuccess(true);
-    setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', message: '' });
     setTimeout(() => setShowSuccess(false), 5000);
   };
 

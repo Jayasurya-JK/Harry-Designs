@@ -12,9 +12,9 @@ import {
 import {
   SiAdobeillustrator,
   SiAdobephotoshop,
-  SiAdobeindesign,
-  SiSketch,
-  SiBlender,
+  SiAdobepremierepro,
+  SiAdobeaftereffects,
+  SiAffinitydesigner,
 } from 'react-icons/si';
 
 /**
@@ -23,9 +23,9 @@ import {
 
 export const WHY_HARRY = [
   {
-    icon: FaHeart,
-    title: 'Passion-Driven',
-    description: 'Every design is crafted with love and dedication to excellence',
+    icon: FaPalette,
+    title: 'Design With Purpose',
+    description: 'Every visual decision is driven by meaning, strategy, and clarity',
     color: 'from-pink-500 to-rose-500',
   },
   {
@@ -35,63 +35,75 @@ export const WHY_HARRY = [
     color: 'from-blue-500 to-cyan-500',
   },
   {
-    icon: FaStar,
-    title: 'Premium Quality',
-    description: 'Award-winning designs that exceed expectations',
+    icon: FaBolt,
+    title: 'Precision in Every Detail',
+    description: 'From typography to spacing, every detail is intentional.',
     color: 'from-amber-500 to-yellow-500',
   },
   {
-    icon: FaBolt,
-    title: 'Innovative Ideas',
-    description: 'Fresh perspectives and creative solutions',
+    icon: FaStar,
+    title: 'Timeless, High-End Aesthetic',
+    description: 'My work is crafted to remain relevant and elegant over time, ensuring your brand looks premium today and years from now.',
     color: 'from-crimson to-crimson-dark',
   },
 ];
 
 export const TOOLS = [
   {
-    name: 'Adobe Illustrator',
+    name: 'Photoshop',
+    icon: SiAdobephotoshop,
+    color: 'from-blue-600 to-cyan-600',
+  },
+  {
+    name: 'illustrator',
     icon: SiAdobeillustrator,
     color: 'from-orange-600 to-yellow-600',
   },
   {
-    name: 'Adobe Photoshop',
-    icon: SiAdobephotoshop,
-    color: 'from-blue-600 to-cyan-600',
+    name: 'premiere pro',
+    icon: SiAdobepremierepro,
+    color: 'from-purple-600 to-indigo-600',
   },
-  { name: 'Figma', icon: FaFigma, color: 'from-purple-600 to-pink-600' },
   {
-    name: 'Adobe InDesign',
-    icon: SiAdobeindesign,
-    color: 'from-pink-600 to-rose-600',
+    name: 'figma',
+    icon: FaFigma,
+    color: 'from-pink-500 to-rose-500',
   },
-  { name: 'Sketch', icon: SiSketch, color: 'from-amber-600 to-orange-600' },
-  { name: 'Blender 3D', icon: SiBlender, color: 'from-blue-600 to-indigo-600' },
+  {
+    name: 'after effects',
+    icon: SiAdobeaftereffects,
+    color: 'from-indigo-600 to-violet-600',
+  },
+  {
+    name: 'Affinity Designer',
+    icon: SiAffinitydesigner,
+    color: 'from-blue-500 to-teal-500',
+  },
 ];
 
 export const SKILLS = [
   {
     icon: FaPalette,
-    title: 'Logo Design',
-    description: 'Creating unique and memorable brand identities that stand out',
+    title: 'Brand Visual Identity Design',
+    description: 'Creating cohesive, timeless visual systems that express a brand’s essence across every touchpoint.',
     gradient: 'from-purple-600 to-pink-600',
   },
   {
     icon: FaBox,
-    title: 'Product Packaging',
-    description: 'Designing packaging that captivates and converts customers',
+    title: 'Logo Design',
+    description: 'Designing distinctive logos and refined typographic hierarchies built for longevity and clarity.',
     gradient: 'from-blue-600 to-cyan-600',
   },
   {
     icon: FaLightbulb,
-    title: 'Creative Solutions',
-    description: 'Innovative design approaches for complex branding challenges',
+    title: 'Product Packaging',
+    description: 'Designing packaging that captivates and converts customers',
     gradient: 'from-amber-600 to-orange-600',
   },
   {
     icon: FaAward,
-    title: 'Award-Winning',
-    description: 'Recognized excellence in design and client satisfaction',
+    title: 'Creative Solutions',
+    description: 'Innovative design approaches for complex branding challenges',
     gradient: 'from-emerald-600 to-teal-600',
   },
 ];

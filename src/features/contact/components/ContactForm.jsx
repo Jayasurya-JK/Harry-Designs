@@ -55,6 +55,22 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
+            Your Phone Number
+          </label>
+          <motion.input
+            whileFocus={{ scale: 1.01 }}
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-all outline-none text-white placeholder-slate-500"
+            placeholder="+1 (555) 000-0000"
+          />
+        </div>
+
+        <div>
           <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
             Your Message
           </label>

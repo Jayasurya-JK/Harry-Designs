@@ -43,6 +43,12 @@ const Footer = () => {
           <div className="border-t border-slate-800 pt-8 mt-8">
             <p className="text-slate-500 text-sm">
               © {SITE_INFO.currentYear} {SITE_INFO.fullName}. All rights reserved.
+              <span className="block mt-2">
+                Designed and developed by{' '}
+                <a href="https://jaywebstudio.in" target="_blank" rel="noopener noreferrer" className="text-crimson hover:text-crimson-light transition-colors font-medium">
+                  Jaywebstudio
+                </a>
+              </span>
             </p>
           </div>
         </div>

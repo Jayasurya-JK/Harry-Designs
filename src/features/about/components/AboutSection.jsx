@@ -19,7 +19,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-32 bg-eerie-light overflow-hidden"
+      className="relative pt-20 md:pt-32 pb-10 md:pb-16 bg-eerie-light overflow-hidden"
       ref={ref}
     >
       {/* Background decorative elements with enhanced animations */}

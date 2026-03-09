@@ -13,7 +13,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
         exit="closed"
         variants={menuSlide}
         transition={TRANSITIONS.fast}
-        className="md:hidden glass-effect border-t border-white/10"
+        className="md:hidden relative z-[100] bg-eerie border-t border-white/10"
       >
         <div className="px-4 pt-2 pb-4 space-y-2">
           {NAV_LINKS.map((link, index) => (

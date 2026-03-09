@@ -20,7 +20,7 @@ const Navbar = () => {
       transition={{ ...TRANSITIONS.medium, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         'fixed w-full z-50 transition-all duration-300',
-        scrolled ? 'glass-effect shadow-xl shadow-purple-500/5' : 'bg-transparent'
+        isOpen ? 'bg-eerie' : (scrolled ? 'glass-effect shadow-xl shadow-purple-500/5' : 'bg-transparent')
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

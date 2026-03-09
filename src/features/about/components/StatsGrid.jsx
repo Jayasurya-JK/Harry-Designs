@@ -1,14 +1,39 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { motion, animate, useMotionValue, useTransform, useInView } from 'framer-motion';
 import { useIsMobile } from '@/hooks';
 import { fadeInUp, TRANSITIONS, DELAYS } from '@/animations';
 
 const STATS = [
-  { number: '200+', label: 'Projects Completed', gradient: 'from-purple-600 to-pink-600' },
-  { number: '150+', label: 'Happy Clients', gradient: 'from-blue-600 to-cyan-600' },
-  { number: '50+', label: 'Logos Designed', gradient: 'from-amber-600 to-orange-600' },
-  { number: '100+', label: 'Packages Created', gradient: 'from-emerald-600 to-teal-600' },
+  { rawNumber: 5, suffix: '+', label: 'Years of freelance experience', gradient: 'from-purple-600 to-pink-600' },
+  { rawNumber: 80, suffix: '+', label: 'Projects Completed', gradient: 'from-blue-600 to-cyan-600' },
+  { rawNumber: 50, suffix: '+', label: 'Happy Clients', gradient: 'from-amber-600 to-orange-600' },
+  { rawNumber: 40, suffix: '+', label: 'Logos Designed', gradient: 'from-emerald-600 to-teal-600' },
 ];
+
+const AnimatedCounter = ({ value, suffix }) => {
+  const ref = React.useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+  
+  React.useEffect(() => {
+    if (inView) {
+      const controls = animate(motionValue, value, {
+        duration: 2,
+        ease: 'easeOut',
+      });
+      return controls.stop;
+    }
+  }, [inView, motionValue, value]);
+
+  return (
+    <span ref={ref}>
+      <motion.span>{rounded}</motion.span>
+      {suffix}
+    </span>
+  );
+};
 
 const StatsGrid = ({ isInView }) => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -60,7 +85,7 @@ const StatsGrid = ({ isInView }) => {
             }}
             transition={{ duration: 0.2 }}
           >
-            {stat.number}
+            <AnimatedCounter value={stat.rawNumber} suffix={stat.suffix} />
           </motion.div>
           <div className="text-slate-400 text-sm md:text-base relative z-10 group-hover:text-slate-300 transition-colors font-medium">
             {stat.label}

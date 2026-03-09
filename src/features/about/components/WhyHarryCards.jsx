@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { WHY_HARRY } from '../data/aboutData';
 import { useIsMobile } from '@/hooks';
-import { useCardStack } from '../hooks/useCardStack';
+
 import { TRANSITIONS } from '@/animations';
 import AboutProfile from './AboutProfile';
 
@@ -98,162 +98,83 @@ const WhyHarryDesktop = ({ hoveredCard, setHoveredCard }) => {
 };
 
 const WhyHarryMobile = ({ isInView }) => {
-  const { cardStack, isAutoPlaying, toggleAutoPlay, handleDragEnd } = useCardStack(
-    WHY_HARRY.length,
-    isInView
-  );
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-play the slider
+  useEffect(() => {
+    if (!isInView) return;
+    
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % WHY_HARRY.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isInView]);
+
+  const reason = WHY_HARRY[activeIndex];
+  const Icon = reason.icon;
 
   return (
-    <div className="col-span-1 order-2 relative h-[500px] flex items-center justify-center px-4">
-      {/* Instruction text */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ delay: 0.3 }}
-        className="absolute top-0 left-0 right-0 text-center text-slate-400 text-sm mb-4 z-20"
-      >
-        👆 Swipe up to see next card
-      </motion.div>
+    <div className="col-span-1 order-2 relative h-[450px] flex flex-col items-center justify-center px-4 overflow-hidden">
+      
+      {/* Sliding Cards Container */}
+      <div className="relative w-full max-w-sm flex items-center justify-center pt-8">
+        
+        <motion.div
+          key={activeIndex}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="w-full relative z-10"
+        >
+          <div className="w-full p-6 glass-effect rounded-3xl overflow-hidden shadow-2xl relative"
+               style={{
+                 background: 'rgba(30, 41, 59, 0.8)',
+                 backdropFilter: 'blur(20px)',
+                 border: '1px solid rgba(139, 92, 246, 0.3)',
+               }}
+          >
+            {/* Gradient overlay */}
+             <div
+               className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-10`}
+             />
 
-      {/* Play/Pause Control */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        transition={{ delay: 0.5 }}
-        onClick={toggleAutoPlay}
-        className="absolute top-8 right-6 z-30 w-10 h-10 rounded-full bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 flex items-center justify-center text-white hover:bg-slate-700/80 transition-all duration-300 active:scale-95 shadow-lg"
-        aria-label={isAutoPlaying ? 'Pause auto-play' : 'Resume auto-play'}
-      >
-        {isAutoPlaying ? (
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M5 3.5h2v9H5v-9zm4 0h2v9H9v-9z" />
-          </svg>
-        ) : (
-          <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M4 3v10l8-5-8-5z" />
-          </svg>
-        )}
-      </motion.button>
-
-      {/* Stacked Cards Container */}
-      <div className="relative w-full max-w-sm h-full flex items-center">
-        {cardStack.map((cardIndex, stackPosition) => {
-          const reason = WHY_HARRY[cardIndex];
-          const Icon = reason.icon;
-          const isTopCard = stackPosition === 0;
-          const isVisible = stackPosition < 3;
-
-          if (!isVisible) return null;
-
-          return (
-            <motion.div
-              key={`${cardIndex}-${stackPosition}`}
-              className="absolute inset-0 flex items-center justify-center"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{
-                scale: 1 - stackPosition * 0.05,
-                y: stackPosition * 15,
-                opacity: 1 - stackPosition * 0.3,
-                zIndex: 10 - stackPosition,
-                rotateZ: stackPosition * 2,
-              }}
-              transition={{
-                type: 'spring',
-                stiffness: 300,
-                damping: 25,
-              }}
-              drag={isTopCard ? 'y' : false}
-              dragConstraints={{ top: -300, bottom: 50 }}
-              dragElastic={0.7}
-              onDragEnd={isTopCard ? handleDragEnd : undefined}
-              style={{
-                cursor: isTopCard ? 'grab' : 'default',
-                touchAction: isTopCard ? 'none' : 'auto',
-              }}
-            >
+            <div className="relative z-10">
+              {/* Icon */}
               <div
-                className="w-full p-6 glass-effect rounded-3xl overflow-hidden shadow-2xl"
-                style={{
-                  background:
-                    stackPosition === 0 ? 'rgba(30, 41, 59, 0.8)' : 'rgba(30, 41, 59, 0.6)',
-                  backdropFilter: 'blur(20px)',
-                  border:
-                    stackPosition === 0
-                      ? '1px solid rgba(139, 92, 246, 0.3)'
-                      : '1px solid rgba(100, 116, 139, 0.2)',
-                }}
+                className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white shadow-lg`}
               >
-                {/* Gradient overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-10`}
-                />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <motion.div
-                    animate={{
-                      scale: isTopCard ? [1, 1.05, 1] : 1,
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white shadow-lg`}
-                  >
-                    <Icon className="text-4xl" />
-                  </motion.div>
-
-                  <h4 className="text-2xl font-bold mb-3 text-white text-center">
-                    {reason.title}
-                  </h4>
-                  <p className="text-slate-300 text-base leading-relaxed text-center">
-                    {reason.description}
-                  </p>
-
-                  {/* Card indicator */}
-                  <div className="flex justify-center gap-2 mt-6">
-                    {WHY_HARRY.map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          i === cardIndex
-                            ? 'w-8 bg-gradient-to-r from-purple-500 to-pink-500'
-                            : 'w-1.5 bg-slate-600'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Shine effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent"
-                  animate={{
-                    x: isTopCard ? ['-100%', '100%'] : '-100%',
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
+                <Icon className="text-4xl" />
               </div>
-            </motion.div>
-          );
-        })}
+
+              <h4 className="text-2xl font-bold mb-4 text-white text-center">
+                {reason.title}
+              </h4>
+              <p className="text-slate-300 text-base leading-relaxed text-center min-h-[80px]">
+                {reason.description}
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Stack depth indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ delay: 0.5 }}
-        className="absolute bottom-0 left-0 right-0 text-center text-slate-500 text-xs"
-      >
-        {cardStack[0] + 1} of {WHY_HARRY.length}
-      </motion.div>
+      {/* Slide Indicators */}
+      <div className="flex justify-center gap-2 mt-8 z-20">
+        {WHY_HARRY.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIndex(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === activeIndex
+                ? 'w-8 bg-gradient-to-r from-purple-500 to-pink-500'
+                : 'w-2 bg-slate-600 hover:bg-slate-500'
+            }`}
+          />
+        ))}
+      </div>
+      
     </div>
   );
 };
