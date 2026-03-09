@@ -67,7 +67,7 @@ const StatsGrid = ({ isInView }) => {
                 }
               : {}
           }
-          className="group relative p-6 md:p-7 glass-effect rounded-2xl overflow-hidden cursor-pointer"
+          className="group relative p-4 sm:p-5 md:p-4 lg:p-6 glass-effect rounded-2xl overflow-hidden cursor-pointer flex flex-col justify-center min-h-[140px]"
           onMouseEnter={() => !isMobile && setHoveredCard(stat.label)}
           onMouseLeave={() => !isMobile && setHoveredCard(null)}
         >
@@ -79,7 +79,7 @@ const StatsGrid = ({ isInView }) => {
           />
 
           <motion.div
-            className="text-3xl md:text-5xl font-bold text-gradient mb-2 relative z-10"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-1 md:mb-2 relative z-10"
             animate={{
               scale: !isMobile && hoveredCard === stat.label ? 1.15 : 1,
             }}
@@ -87,7 +87,7 @@ const StatsGrid = ({ isInView }) => {
           >
             <AnimatedCounter value={stat.rawNumber} suffix={stat.suffix} />
           </motion.div>
-          <div className="text-slate-400 text-sm md:text-base relative z-10 group-hover:text-slate-300 transition-colors font-medium">
+          <div className="text-slate-400 text-xs sm:text-sm md:text-sm lg:text-base leading-tight md:leading-normal relative z-10 group-hover:text-slate-300 transition-colors font-medium">
             {stat.label}
           </div>
         </motion.div>
