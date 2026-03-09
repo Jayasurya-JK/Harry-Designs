@@ -36,6 +36,11 @@
 }
 
 @layer base {
+  html, body {
+    overflow-x: clip;
+    width: 100%;
+  }
+
   html {
     scroll-behavior: smooth;
   }

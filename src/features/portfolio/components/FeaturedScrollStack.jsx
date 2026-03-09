@@ -212,11 +212,11 @@ const FeaturedScrollStack = ({ items, onViewAll }) => {
   const totalCards = items.length;
   
   return (
-    <div className="relative w-full overflow-x-hidden">
+    <div className="relative w-full overflow-x-clip">
       {/* Tall scroll container - creates scroll room for animations */}
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden"
+        className="relative w-full"
         style={{
           height: isMobile ? '600vh' : SCROLL_STACK_CONFIG.containerHeight,
         }}

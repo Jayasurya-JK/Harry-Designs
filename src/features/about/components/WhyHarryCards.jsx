@@ -114,6 +114,21 @@ const WhyHarryMobile = ({ isInView }) => {
   const reason = WHY_HARRY[activeIndex];
   const Icon = reason.icon;
 
+  const handleDragEnd = (e, { offset, velocity }) => {
+    const swipe = swipePower(offset.x, velocity.x);
+
+    if (swipe < -swipeConfidenceThreshold) {
+      setActiveIndex((current) => (current + 1) % WHY_HARRY.length);
+    } else if (swipe > swipeConfidenceThreshold) {
+      setActiveIndex((current) => (current - 1 + WHY_HARRY.length) % WHY_HARRY.length);
+    }
+  };
+
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset, velocity) => {
+    return Math.abs(offset) * velocity;
+  };
+
   return (
     <div className="col-span-1 order-2 relative h-[450px] flex flex-col items-center justify-center px-4 overflow-hidden">
       
@@ -126,7 +141,11 @@ const WhyHarryMobile = ({ isInView }) => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full relative z-10"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          className="w-full relative z-10 cursor-grab active:cursor-grabbing"
         >
           <div className="w-full p-6 glass-effect rounded-3xl overflow-hidden shadow-2xl relative"
                style={{
@@ -137,10 +156,10 @@ const WhyHarryMobile = ({ isInView }) => {
           >
             {/* Gradient overlay */}
              <div
-               className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-10`}
+               className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-10 pointer-events-none`}
              />
 
-            <div className="relative z-10">
+            <div className="relative z-10 pointer-events-none">
               {/* Icon */}
               <div
                 className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white shadow-lg`}
